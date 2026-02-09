@@ -1,3 +1,5 @@
+import ParallaxShell from "@/components/ParallaxShell";
+
 export default function ServicesPage() {
   const services = [
     {
@@ -21,127 +23,123 @@ export default function ServicesPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
-      {/* Decorative background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-1/3 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-1/4 w-80 h-80 bg-indigo-500/5 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="relative z-10">
+    <ParallaxShell strength={0.17}>
+      <main className="min-h-screen">
         {/* Hero Section */}
-        <div className="max-w-4xl mx-auto px-6 py-32">
-          <div className="space-y-6">
-            <span className="text-xs font-semibold text-blue-400 bg-blue-500/10 border border-blue-500/30 px-4 py-2 rounded-full inline-block tracking-widest uppercase">
+        <section className="max-w-5xl mx-auto px-6 pt-28 pb-10 md:pt-32 md:pb-14">
+          <div className="space-y-6 slide-in">
+            <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/25 bg-blue-500/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-300">
               Services
             </span>
-            
-            <h1 className="text-6xl md:text-6xl font-bold text-white">
-              Services that scale with you
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white">
+              Three ways we can help you ship
             </h1>
-            
-            <p className="text-xl text-slate-400 max-w-2xl">
-              Three core areas that work together to transform your business through technology.
+
+            <p className="max-w-2xl text-base md:text-lg text-slate-300 leading-relaxed">
+              We focus on a small set of services that compound together: interfaces your users love, systems that
+              stay fast, and AI that actually earns a place in the workflow.
             </p>
           </div>
-        </div>
+        </section>
 
         {/* Services Grid */}
-        <div className="max-w-6xl mx-auto px-6 py-20">
-          <div className="grid md:grid-cols-3 gap-8">
+        <section className="max-w-6xl mx-auto px-6 pb-16 md:pb-20">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
             {services.map((service, index) => (
-              <div
+              <article
                 key={index}
-                className="group p-8 rounded-xl bg-slate-800/30 border border-slate-700 hover:border-blue-500 hover:bg-slate-800/50 transition-all duration-300"
+                className="glass card-hover group flex flex-col rounded-2xl border border-slate-700/70 p-6"
               >
-                <div className="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300 inline-block">
+                <div className="mb-4 text-3xl group-hover:scale-110 transition-transform duration-300 inline-block">
                   {service.icon}
                 </div>
-                
-                <h3 className="text-2xl font-bold text-white mb-3">{service.title}</h3>
-                
-                <p className="text-slate-400 mb-8 leading-relaxed">
-                  {service.description}
-                </p>
-                
-                <div className="space-y-3 pt-6 border-t border-slate-700">
-                  <p className="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-4">Features:</p>
-                  <ul className="space-y-2">
+
+                <h3 className="text-xl font-semibold text-white mb-2">{service.title}</h3>
+
+                <p className="text-slate-300 text-sm leading-relaxed mb-5">{service.description}</p>
+
+                <div className="mt-auto space-y-3 pt-4 border-t border-slate-700/80">
+                  <p className="text-[11px] font-semibold text-blue-300 uppercase tracking-[0.18em]">
+                    Typical ingredients
+                  </p>
+                  <ul className="space-y-1.5">
                     {service.features.map((feature, idx) => (
-                      <li key={idx} className="text-sm text-slate-400 flex items-center gap-3">
-                        <span className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></span>
+                      <li key={idx} className="text-sm text-slate-300 flex items-center gap-2">
+                        <span className="h-1.5 w-1.5 rounded-full bg-blue-400 flex-shrink-0" />
                         {feature}
                       </li>
                     ))}
                   </ul>
                 </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Process Section */}
+        <section className="max-w-5xl mx-auto px-6 pb-16 md:pb-20 space-y-10">
+          <div className="text-center space-y-3">
+            <h2 className="text-2xl md:text-3xl font-semibold text-white">What working together feels like</h2>
+            <p className="max-w-2xl mx-auto text-sm md:text-base text-slate-300">
+              A simple, repeatable cadence — no mystery, no disappearing acts. You always know what&apos;s next.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {[
+              {
+                label: "Discovery",
+                copy: "We get a precise sense of where you are today, and what 'better' looks like in 3–6 months.",
+              },
+              {
+                label: "Shaping",
+                copy: "We carve the work into sharp, shippable chunks that can ship independently and provide value early.",
+              },
+              {
+                label: "Delivery",
+                copy: "We build in weekly cycles with clear artifacts: demos, notes, and implementation details you can keep.",
+              },
+              {
+                label: "Aftercare",
+                copy: "We stay close after launch to tighten any loose screws and line up the next set of improvements.",
+              },
+            ].map((step, index) => (
+              <div key={step.label} className="flex gap-5 items-start">
+                <div className="flex-shrink-0">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full border border-blue-500/40 bg-slate-950/80 text-sm font-semibold text-blue-200">
+                    {index + 1}
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-sm md:text-base font-semibold text-white mb-1.5">{step.label}</h3>
+                  <p className="text-sm text-slate-300">{step.copy}</p>
+                </div>
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Process Section */}
-        <div className="max-w-4xl mx-auto px-6 py-20 space-y-12">
-          <h2 className="text-4xl font-bold text-center text-white">How We Work</h2>
-          
-          <div className="space-y-6">
-            <div className="flex gap-6 items-start">
-              <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
-                1
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">Discovery</h3>
-                <p className="text-slate-400">We understand your goals, challenges, and vision for the future of your business.</p>
-              </div>
-            </div>
-            
-            <div className="flex gap-6 items-start">
-              <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
-                2
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">Strategy</h3>
-                <p className="text-slate-400">We create a clear, actionable roadmap tailored specifically to your needs.</p>
-              </div>
-            </div>
-            
-            <div className="flex gap-6 items-start">
-              <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
-                3
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">Execution</h3>
-                <p className="text-slate-400">We build your solution with meticulous attention to detail and quality code.</p>
-              </div>
-            </div>
-            
-            <div className="flex gap-6 items-start">
-              <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
-                4
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">Launch & Support</h3>
-                <p className="text-slate-400">We launch with precision and provide ongoing support for continued success.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        </section>
 
         {/* CTA Section */}
-        <div className="max-w-3xl mx-auto px-6 py-20 text-center space-y-8">
+        <section className="max-w-3xl mx-auto px-6 pb-24 text-center">
           <div className="space-y-4">
-            <h2 className="text-4xl font-bold text-white">Let's discuss your project</h2>
-            <p className="text-slate-400 text-lg">Reach out and tell us what you're building.</p>
+            <h2 className="text-3xl md:text-4xl font-semibold text-white">
+              Not sure which service you need?
+            </h2>
+            <p className="text-base md:text-lg text-slate-300">
+              Share the situation you&apos;re in, and we&apos;ll suggest a simple way to start — often a small, low-risk
+              first project.
+            </p>
           </div>
           <a
             href="/contact"
-            className="inline-block group relative px-10 py-4 font-semibold text-white overflow-hidden rounded-lg"
+            className="mt-8 inline-flex items-center justify-center rounded-full border border-blue-400/60 bg-slate-950/80 px-8 py-3 text-sm font-semibold text-blue-100 shadow-[0_0_40px_rgba(59,130,246,0.45)] transition-all hover:border-blue-300 hover:text-white"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 group-hover:from-blue-500 group-hover:to-indigo-500 transition-all duration-300"></div>
-            <div className="relative">Contact Us</div>
+            Describe your situation
           </a>
-        </div>
-      </div>
-    </main>
+        </section>
+      </main>
+    </ParallaxShell>
   );
 }
+
