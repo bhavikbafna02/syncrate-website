@@ -127,7 +127,6 @@ export default function Home() {
                       A small studio, working on a few things at a time.
                     </p>
                   </div>
-                  <span className="h-10 w-10 rounded-2xl border border-cyan-400/50 bg-slate-950/80 shadow-[0_0_35px_rgba(34,211,238,0.45)]" />
                 </div>
               </div>
             </div>
