@@ -11,38 +11,13 @@
    strength?: number;
  };
 
- export default function ParallaxShell({ children, strength = 0.18 }: ParallaxShellProps) {
+ export default function ParallaxShell({
+   children,
+   strength = 0.18,
+ }: ParallaxShellProps) {
    const [scrollY, setScrollY] = useState(0);
-   const [parallaxEnabled, setParallaxEnabled] = useState(false);
 
    useEffect(() => {
-     const prefersReducedMotion =
-       typeof window !== "undefined" &&
-       window.matchMedia &&
-       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-     const isSmallViewport = typeof window !== "undefined" && window.innerWidth < 768;
-
-     // Only enable parallax on larger screens and when motion is acceptable
-     setParallaxEnabled(!prefersReducedMotion && !isSmallViewport);
-
-     const handleResize = () => {
-       const small = window.innerWidth < 768;
-       const reduced =
-         window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-       setParallaxEnabled(!reduced && !small);
-     };
-
-     window.addEventListener("resize", handleResize);
-     return () => window.removeEventListener("resize", handleResize);
-   }, []);
-
-   useEffect(() => {
-     if (!parallaxEnabled) {
-       setScrollY(0);
-       return;
-     }
-
      const handleScroll = () => {
        setScrollY(window.scrollY || window.pageYOffset || 0);
      };
@@ -51,20 +26,16 @@
      window.addEventListener("scroll", handleScroll, { passive: true });
 
      return () => window.removeEventListener("scroll", handleScroll);
-   }, [parallaxEnabled]);
+   }, []);
 
-   const slow = parallaxEnabled ? scrollY * strength * 0.3 : 0;
-   const medium = parallaxEnabled ? scrollY * strength * 0.6 : 0;
-   const fast = parallaxEnabled ? scrollY * strength : 0;
+   const slow = scrollY * strength * 0.3;
+   const medium = scrollY * strength * 0.6;
+   const fast = scrollY * strength;
 
    return (
-     <div className="relative min-h-screen overflow-hidden md:overflow-visible">
+     <div className="relative min-h-screen overflow-hidden">
        {/* Parallax background layers */}
-       <div
-         className={`pointer-events-none -z-10 ${
-           parallaxEnabled ? "fixed inset-0" : "absolute inset-0"
-         }`}
-       >
+       <div className="pointer-events-none fixed inset-0 -z-10">
          <div
            className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-blue-500/12 blur-3xl"
            style={{
@@ -100,7 +71,7 @@
        <div
          className="relative z-10"
          style={{
-           transform: parallaxEnabled ? `translate3d(0, ${scrollY * -0.03}px, 0)` : undefined,
+           transform: `translate3d(0, ${scrollY * -0.03}px, 0)`,
            transition: "transform 80ms linear",
          }}
        >

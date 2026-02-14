@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import type { Metadata } from "next";
+import SynBot from "@/components/SynBot";
+
 
 export const metadata: Metadata = {
   title: "Syncrate",
@@ -22,6 +24,7 @@ export default function RootLayout({
           <main>{children}</main>
         </PageTransition>
         <Footer />
+        <SynBot />
       </body>
     </html>
   );
