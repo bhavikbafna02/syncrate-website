@@ -1,64 +1,45 @@
+import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
-const SYSTEM_PROMPT = `
-You are SynBot, the AI assistant for Syncrate.
-
-Syncrate builds modern websites, AI systems, and workflow automation
-for founders and teams who want clarity, not chaos.
-
-Your behavior:
-- calm
-- precise
-- professional
-- not salesy
-- no hype
-
-Only answer questions related to:
-- Syncrate
-- its services
-- AI, websites, automation (high-level guidance)
-
-If a question is outside scope, politely redirect.
-`;
-
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   try {
-    const { message } = await req.json();
+    const body = await request.json();
+    const { name, email, company, message } = body;
 
-    if (!message || typeof message !== "string") {
+    // Validate input
+    if (!name || !email || !message) {
       return NextResponse.json(
-        { error: "Message is required" },
+        { error: "Missing required fields: name, email, or message" },
         { status: 400 }
       );
     }
 
-    const response = await fetch("https://api.x.ai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${process.env.XAI_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "grok-2-mini",
-        messages: [
-          { role: "system", content: SYSTEM_PROMPT },
-          { role: "user", content: message },
-        ],
-        temperature: 0.3,
-      }),
+    const supabase = await createClient();
+
+    // Insert data into Supabase
+    const { error } = await supabase.from("contacts").insert({
+      name,
+      email,
+      company: company || null,
+      message,
     });
 
-    if (!response.ok) {
-      throw new Error("xAI API request failed");
+    if (error) {
+      console.error("Supabase error:", error);
+      return NextResponse.json(
+        { error: "Failed to save message" },
+        { status: 500 }
+      );
     }
 
-    const data = await response.json();
-    const reply = data.choices?.[0]?.message?.content;
-
-    return NextResponse.json({ reply });
-  } catch (error) {
     return NextResponse.json(
-      { error: "SynBot failed to respond" },
+      { message: "Message sent successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Internal Error:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
       { status: 500 }
     );
   }
