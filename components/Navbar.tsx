@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-
 import { createClient } from "@/utils/supabase/server";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export default async function Navbar() {
   const supabase = await createClient();
@@ -13,8 +13,8 @@ export default async function Navbar() {
   const username = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Dashboard';
 
   return (
-    <nav className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
-      <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
+    <nav className="sticky top-0 z-50 bg-background/95 border-b border-border">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo / Brand */}
         <Link
           href="/"
@@ -23,10 +23,10 @@ export default async function Navbar() {
           <Image
             src="/logo.svg"
             alt="SYNCRATE"
-            width={250}
-            height={100}
+            width={120}
+            height={40}
             priority
-            className="h-16 w-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.25)]"
+            className="h-10 w-auto invert dark:invert-0"
           />
         </Link>
 
@@ -34,41 +34,42 @@ export default async function Navbar() {
         <div className="flex gap-8 text-sm font-medium items-center">
           <Link
             href="/services"
-            className="text-slate-400 hover:text-white transition-colors relative group"
+            className="text-text-secondary hover:text-text-primary transition-colors"
           >
             Services
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 group-hover:w-full transition-all duration-300" />
           </Link>
           <Link
             href="/about"
-            className="text-slate-400 hover:text-white transition-colors relative group"
+            className="text-text-secondary hover:text-text-primary transition-colors"
           >
             About
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 group-hover:w-full transition-all duration-300" />
           </Link>
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-4 items-center pl-4 border-l border-border">
             <Link
               href="/contact"
-              className="text-slate-400 hover:text-white transition-colors relative group mr-2"
+              className="text-text-secondary hover:text-text-primary transition-colors mr-2"
             >
               Contact
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 group-hover:w-full transition-all duration-300" />
             </Link>
+            <ModeToggle />
+
             {user ? (
               <Link
                 href="/dashboard"
-                className="px-6 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-all hover:scale-105 active:scale-95 backdrop-blur-sm border border-white/10 shadow-[0_0_20px_rgba(0,102,255,0.3)] hover:shadow-[0_0_25px_rgba(0,102,255,0.5)] truncate max-w-[200px]"
+                className="btn-secondary truncate max-w-[200px]"
               >
                 {username}
               </Link>
             ) : (
               <Link
                 href="/login"
-                className="px-6 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-all hover:scale-105 active:scale-95 backdrop-blur-sm border border-white/10 shadow-[0_0_20px_rgba(0,102,255,0.3)] hover:shadow-[0_0_25px_rgba(0,102,255,0.5)]"
+                className="btn-primary"
               >
                 Login
               </Link>
             )}
+
+
           </div>
         </div>
       </div>

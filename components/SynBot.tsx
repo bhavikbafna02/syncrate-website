@@ -53,7 +53,7 @@ export default function SynBot() {
       {/* Floating Button */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 text-white px-5 py-3 rounded-full shadow-lg shadow-cyan-500/50 hover:shadow-xl hover:shadow-cyan-500/70 transition-all hover:scale-105 font-semibold text-sm"
+        className="fixed bottom-6 right-6 z-50 btn-primary rounded-full shadow-lg px-6 py-3 font-semibold text-sm transition-transform hover:scale-105"
         aria-label="Open SynBot chat"
       >
         SynBot
@@ -61,15 +61,15 @@ export default function SynBot() {
 
       {/* Chat Window */}
       {open && (
-        <div className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 bg-slate-950 border border-slate-700/70 rounded-2xl shadow-2xl flex flex-col backdrop-blur-md glass">
-          <div className="p-4 border-b border-slate-700/70 flex items-center justify-between">
+        <div className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 bg-surface border border-border rounded-xl shadow-2xl flex flex-col overflow-hidden animate-slide-up">
+          <div className="p-4 border-b border-border flex items-center justify-between bg-surface-highlight/50">
             <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="font-semibold text-white">SynBot</span>
+              <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
+              <span className="font-semibold text-text-primary">SynBot</span>
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="text-slate-400 hover:text-white transition-colors"
+              className="text-text-tertiary hover:text-text-primary transition-colors"
               aria-label="Close chat"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,10 +78,10 @@ export default function SynBot() {
             </button>
           </div>
 
-          <div className="flex-1 p-4 space-y-3 overflow-y-auto text-sm max-h-96">
+          <div className="flex-1 p-4 space-y-3 overflow-y-auto text-sm max-h-96 min-h-[300px] bg-background/50">
             {messages.length === 0 && (
-              <div className="text-center text-slate-400 py-8">
-                <p className="text-sm">Ask me anything about Syncrate!</p>
+              <div className="text-center text-text-tertiary py-12">
+                <p className="text-sm">Ask me anything about Syncrate.</p>
               </div>
             )}
             {messages.map((msg, i) => (
@@ -89,21 +89,20 @@ export default function SynBot() {
                 key={i}
                 className={msg.role === 'user' ? 'text-right' : 'text-left'}
               >
-                <span
-                  className={`inline-block px-4 py-2 rounded-xl text-sm ${
-                    msg.role === 'user'
-                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white'
-                      : 'bg-slate-800/80 text-slate-200 border border-slate-700/50'
-                  }`}
+                <div
+                  className={`inline-block px-4 py-2 rounded-lg text-sm max-w-[85%] text-left ${msg.role === 'user'
+                      ? 'bg-accent text-accent-foreground'
+                      : 'bg-surface border border-border text-text-primary'
+                    }`}
                 >
                   {msg.content}
-                </span>
+                </div>
               </div>
             ))}
 
             {loading && (
               <div className="text-left">
-                <span className="inline-block px-4 py-2 rounded-xl bg-slate-800/80 text-slate-400 text-sm">
+                <span className="inline-block px-4 py-2 rounded-lg bg-surface border border-border text-text-tertiary text-sm">
                   <span className="inline-flex gap-1">
                     <span className="animate-bounce">.</span>
                     <span className="animate-bounce" style={{ animationDelay: '0.1s' }}>.</span>
@@ -114,18 +113,18 @@ export default function SynBot() {
             )}
           </div>
 
-          <div className="p-4 border-t border-slate-700/70 flex gap-2">
+          <div className="p-3 border-t border-border bg-surface flex gap-2">
             <input
               value={input}
               onChange={e => setInput(e.target.value)}
-              placeholder="Ask SynBot…"
-              className="flex-1 bg-slate-900/70 border border-slate-700/70 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:border-cyan-500/60 focus:ring-2 focus:ring-cyan-500/25 outline-none transition-all"
+              placeholder="Type your message..."
+              className="flex-1 bg-background border border-border rounded-lg px-3 py-2 text-sm text-text-primary placeholder-text-tertiary focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all"
               onKeyDown={e => e.key === 'Enter' && sendMessage()}
             />
             <button
               onClick={sendMessage}
               disabled={loading || !input.trim()}
-              className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2.5 rounded-lg hover:from-blue-500 hover:to-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-medium text-sm"
+              className="btn-primary px-4 py-2 rounded-lg text-sm disabled:opacity-50"
             >
               Send
             </button>

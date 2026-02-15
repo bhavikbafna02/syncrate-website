@@ -1,3 +1,4 @@
+
 import ParallaxShell from "@/components/ParallaxShell";
 
 export default function ServicesPage() {
@@ -23,20 +24,22 @@ export default function ServicesPage() {
   ];
 
   return (
-    <ParallaxShell strength={0.17}>
+    <ParallaxShell>
       <main className="min-h-screen">
         {/* Hero Section */}
-        <section className="max-w-5xl mx-auto px-6 pt-28 pb-10 md:pt-32 md:pb-14">
-          <div className="space-y-6 slide-in">
-            <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/25 bg-blue-500/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-300">
+        <section className="container-width pt-28 pb-12 md:pt-32 md:pb-14">
+          <div className="space-y-6 animate-slide-up">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-medium tracking-widest text-text-secondary uppercase">
               Services
             </span>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white">
-              Three ways we can help you ship
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary leading-tight tracking-tight">
+              Three ways we can help
+              <br />
+              you ship.
             </h1>
 
-            <p className="max-w-2xl text-base md:text-lg text-slate-300 leading-relaxed">
+            <p className="max-w-2xl text-lg text-text-secondary leading-relaxed">
               We focus on a small set of services that compound together: interfaces your users love, systems that
               stay fast, and AI that actually earns a place in the workflow.
             </p>
@@ -44,29 +47,30 @@ export default function ServicesPage() {
         </section>
 
         {/* Services Grid */}
-        <section className="max-w-6xl mx-auto px-6 pb-16 md:pb-20">
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+        <section className="container-width pb-20">
+          <div className="grid md:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <article
                 key={index}
-                className="glass card-hover group flex flex-col rounded-2xl border border-slate-700/70 p-6"
+                className="bg-surface flex flex-col rounded-xl border border-border p-6 hover:border-accent/50 transition-colors"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="mb-4 text-3xl group-hover:scale-110 transition-transform duration-300 inline-block">
+                <div className="mb-6 text-3xl opacity-80 grayscale">
                   {service.icon}
                 </div>
 
-                <h3 className="text-xl font-semibold text-white mb-2">{service.title}</h3>
+                <h3 className="text-xl font-bold text-text-primary mb-2">{service.title}</h3>
 
-                <p className="text-slate-300 text-sm leading-relaxed mb-5">{service.description}</p>
+                <p className="text-text-secondary text-sm leading-relaxed mb-8">{service.description}</p>
 
-                <div className="mt-auto space-y-3 pt-4 border-t border-slate-700/80">
-                  <p className="text-[11px] font-semibold text-blue-300 uppercase tracking-[0.18em]">
-                    Typical ingredients
+                <div className="mt-auto space-y-4 pt-4 border-t border-border">
+                  <p className="text-[10px] font-bold text-accent uppercase tracking-widest">
+                    Start with
                   </p>
-                  <ul className="space-y-1.5">
+                  <ul className="space-y-2">
                     {service.features.map((feature, idx) => (
-                      <li key={idx} className="text-sm text-slate-300 flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-blue-400 flex-shrink-0" />
+                      <li key={idx} className="text-xs font-medium text-text-tertiary flex items-center gap-2">
+                        <span className="h-1 w-1 rounded-full bg-accent/60 flex-shrink-0" />
                         {feature}
                       </li>
                     ))}
@@ -78,15 +82,15 @@ export default function ServicesPage() {
         </section>
 
         {/* Process Section */}
-        <section className="max-w-5xl mx-auto px-6 pb-16 md:pb-20 space-y-10">
-          <div className="text-center space-y-3">
-            <h2 className="text-2xl md:text-3xl font-semibold text-white">What working together feels like</h2>
-            <p className="max-w-2xl mx-auto text-sm md:text-base text-slate-300">
+        <section className="container-width pb-20 space-y-12">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl font-bold text-text-primary mb-4">What it feels like</h2>
+            <p className="text-text-secondary text-lg">
               A simple, repeatable cadence — no mystery, no disappearing acts. You always know what&apos;s next.
             </p>
           </div>
 
-          <div className="space-y-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
                 label: "Discovery",
@@ -94,52 +98,43 @@ export default function ServicesPage() {
               },
               {
                 label: "Shaping",
-                copy: "We carve the work into sharp, shippable chunks that can ship independently and provide value early.",
+                copy: "We carve the work into sharp, shippable chunks that can ship independently.",
               },
               {
                 label: "Delivery",
-                copy: "We build in weekly cycles with clear artifacts: demos, notes, and implementation details you can keep.",
+                copy: "We build in weekly cycles with clear artifacts: demos, notes, and code.",
               },
               {
                 label: "Aftercare",
-                copy: "We stay close after launch to tighten any loose screws and line up the next set of improvements.",
+                copy: "We stay close after launch to tighten loose screws and line up the next improvements.",
               },
             ].map((step, index) => (
-              <div key={step.label} className="flex gap-5 items-start">
-                <div className="flex-shrink-0">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-full border border-blue-500/40 bg-slate-950/80 text-sm font-semibold text-blue-200">
-                    {index + 1}
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-sm md:text-base font-semibold text-white mb-1.5">{step.label}</h3>
-                  <p className="text-sm text-slate-300">{step.copy}</p>
-                </div>
+              <div key={step.label} className="relative pl-8 border-l border-border">
+                <div className="absolute -left-[5px] top-0 h-2.5 w-2.5 rounded-full bg-accent" />
+                <h3 className="text-base font-bold text-text-primary mb-2">{step.label}</h3>
+                <p className="text-sm text-text-secondary leading-relaxed">{step.copy}</p>
               </div>
             ))}
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="max-w-3xl mx-auto px-6 pb-24 text-center">
-          <div className="space-y-4">
-            <h2 className="text-3xl md:text-4xl font-semibold text-white">
+        <section className="container-width pb-24 text-center border-t border-border pt-20">
+          <div className="space-y-4 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-text-primary">
               Not sure which service you need?
             </h2>
-            <p className="text-base md:text-lg text-slate-300">
-              Share the situation you&apos;re in, and we&apos;ll suggest a simple way to start — often a small, low-risk
-              first project.
+            <p className="text-lg text-text-secondary">
+              Share the situation you&apos;re in, and we&apos;ll suggest a simple way to start — often a small, low-risk first project.
             </p>
           </div>
-          <a
-            href="/contact"
-            className="mt-8 inline-flex items-center justify-center rounded-full border border-blue-400/60 bg-slate-950/80 px-8 py-3 text-sm font-semibold text-blue-100 shadow-[0_0_40px_rgba(59,130,246,0.45)] transition-all hover:border-blue-300 hover:text-white"
-          >
-            Describe your situation
-          </a>
+          <div className="mt-8">
+            <a href="/contact" className="btn-secondary px-8">
+              Describe your situation
+            </a>
+          </div>
         </section>
       </main>
     </ParallaxShell>
   );
 }
-

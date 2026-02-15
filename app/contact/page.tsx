@@ -45,76 +45,75 @@ export default function ContactPage() {
   };
 
   return (
-    <ParallaxShell strength={0.15}>
-      <main className="min-h-screen text-white">
+    <ParallaxShell>
+      <main className="min-h-screen">
         {/* Header */}
-        <section className="max-w-2xl mx-auto px-6 pt-24 pb-10 md:pt-28 md:pb-14 text-center">
-          <div className="space-y-5 slide-in">
-            <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/25 bg-blue-500/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-300">
-              Get in touch
+        <section className="container-width pt-24 pb-12 text-center">
+          <div className="space-y-6 animate-slide-up">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-medium tracking-widest text-text-secondary uppercase">
+              Contact Us
             </span>
-            <h1 className="text-4xl md:text-5xl font-semibold bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-5xl font-bold text-text-primary tracking-tight">
               Let&apos;s build something specific
             </h1>
-            <p className="text-base md:text-lg text-slate-300">
-              A short, honest message is perfect. No pitch decks needed — just tell us where you are and what&apos;s
-              stuck.
+            <p className="text-lg text-text-secondary max-w-xl mx-auto">
+              A short, honest message is perfect. No pitch decks needed — just tell us where you are and what&apos;s stuck.
             </p>
           </div>
         </section>
 
         {/* Form */}
-        <section className="max-w-2xl mx-auto px-6 pb-16 md:pb-20">
-          <div className="glass border border-slate-700/70 backdrop-blur bg-slate-950/70 rounded-2xl p-7 md:p-8 space-y-6">
+        <section className="container-width pb-20">
+          <div className="max-w-2xl mx-auto border border-border bg-surface rounded-xl p-8 shadow-sm">
             {successMessage && (
-              <div className="p-4 bg-emerald-900/20 border border-emerald-700/50 rounded-lg text-emerald-300 font-medium text-sm">
+              <div className="mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-green-600 dark:text-green-400 font-medium text-sm">
                 {successMessage}
               </div>
             )}
 
             {errorMessage && (
-              <div className="p-4 bg-red-900/20 border border-red-700/50 rounded-lg text-red-300 font-medium text-sm">
+              <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-600 dark:text-red-400 font-medium text-sm">
                 {errorMessage}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid md:grid-cols-2 gap-5">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-200">Name</label>
+                  <label className="block text-sm font-medium text-text-primary">Name</label>
                   <input
                     name="name"
                     type="text"
                     required
                     placeholder="Your name"
-                    className="w-full px-4 py-2.5 bg-slate-900/70 text-white placeholder-gray-500 border border-slate-700/70 rounded-lg focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/25 outline-none transition-all"
+                    className="w-full px-4 py-2 bg-background text-text-primary placeholder-text-tertiary border border-border rounded-lg focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-200">Email</label>
+                  <label className="block text-sm font-medium text-text-primary">Email</label>
                   <input
                     name="email"
                     type="email"
                     required
                     placeholder="you@company.com"
-                    className="w-full px-4 py-2.5 bg-slate-900/70 text-white placeholder-gray-500 border border-slate-700/70 rounded-lg focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/25 outline-none transition-all"
+                    className="w-full px-4 py-2 bg-background text-text-primary placeholder-text-tertiary border border-border rounded-lg focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-200">Company</label>
+                <label className="block text-sm font-medium text-text-primary">Company</label>
                 <input
                   name="company"
                   type="text"
                   placeholder="Your company (optional)"
-                  className="w-full px-4 py-2.5 bg-slate-900/70 text-white placeholder-gray-500 border border-slate-700/70 rounded-lg focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/25 outline-none transition-all"
+                  className="w-full px-4 py-2 bg-background text-text-primary placeholder-text-tertiary border border-border rounded-lg focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-200">
+                <label className="block text-sm font-medium text-text-primary">
                   What would you like to work on?
                 </label>
                 <textarea
@@ -122,54 +121,50 @@ export default function ContactPage() {
                   required
                   rows={5}
                   placeholder="A paragraph about your product, team size, and what you'd like to see change over the next few months."
-                  className="w-full px-4 py-2.5 bg-slate-900/70 text-white placeholder-gray-500 border border-slate-700/70 rounded-lg focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/25 outline-none transition-all resize-none"
+                  className="w-full px-4 py-2 bg-background text-text-primary placeholder-text-tertiary border border-border rounded-lg focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all resize-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full py-3 px-6 font-medium rounded-full text-sm transition-all ${
-                  isSubmitting
-                    ? "bg-slate-700 cursor-not-allowed text-gray-300"
-                    : "bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 text-white shadow-lg shadow-cyan-500/25 hover:shadow-xl hover:shadow-cyan-500/35"
-                }`}
+                className={`w-full py-3 btn-primary text-base ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""
+                  }`}
               >
                 {isSubmitting ? "Sending…" : "Send message"}
               </button>
 
-              <p className="text-xs text-gray-500 text-center">We usually respond within one business day.</p>
+              <p className="text-xs text-text-tertiary text-center">We usually respond within one business day.</p>
             </form>
           </div>
         </section>
 
         {/* Info */}
-        <section className="max-w-4xl mx-auto px-6 pb-24 grid md:grid-cols-3 gap-8 text-center border-t border-slate-800/60">
+        <section className="container-width pb-24 grid md:grid-cols-3 gap-8 text-center border-t border-border pt-12">
           <div>
-            <div className="text-3xl mb-2">📧</div>
-            <h3 className="font-semibold text-gray-200">Email</h3>
+            <div className="text-2xl mb-2 grayscale">📧</div>
+            <h3 className="font-semibold text-text-primary">Email</h3>
             <a
               href="mailto:hello@syncrate.com"
-              className="text-blue-400 hover:text-blue-300 transition-colors text-sm"
+              className="text-text-secondary hover:text-accent transition-colors text-sm"
             >
               hello@syncrate.com
             </a>
           </div>
 
           <div>
-            <div className="text-3xl mb-2">💼</div>
-            <h3 className="font-semibold text-gray-200">Services</h3>
-            <p className="text-gray-500 text-sm">Websites, product UX, AI, automation</p>
+            <div className="text-2xl mb-2 grayscale">💼</div>
+            <h3 className="font-semibold text-text-primary">Services</h3>
+            <p className="text-text-secondary text-sm">Websites, product UX, AI, automation</p>
           </div>
 
           <div>
-            <div className="text-3xl mb-2">⏱️</div>
-            <h3 className="font-semibold text-gray-200">Response time</h3>
-            <p className="text-gray-500 text-sm">Within 24 hours on weekdays</p>
+            <div className="text-2xl mb-2 grayscale">⏱️</div>
+            <h3 className="font-semibold text-text-primary">Response time</h3>
+            <p className="text-text-secondary text-sm">Within 24 hours on weekdays</p>
           </div>
         </section>
       </main>
     </ParallaxShell>
   );
 }
-

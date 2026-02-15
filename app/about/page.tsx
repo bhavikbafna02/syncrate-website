@@ -1,120 +1,119 @@
+
 import ParallaxShell from "@/components/ParallaxShell";
 
 export default function AboutPage() {
   return (
-    <ParallaxShell strength={0.16}>
+    <ParallaxShell>
       <main className="min-h-screen">
         {/* Hero Section */}
-        <section className="max-w-4xl mx-auto px-6 pt-28 pb-10 md:pt-32 md:pb-14">
-          <div className="space-y-6 slide-in">
-            <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/25 bg-blue-500/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-300">
-              About Syncrate
+        <section className="container-width pt-28 pb-12 md:pt-32 md:pb-14">
+          <div className="space-y-6 animate-slide-up">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-medium tracking-widest text-text-secondary uppercase">
+              About Us
             </span>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white leading-tight">
-              A small studio
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary leading-tight tracking-tight">
+              A studio with a longer
               <br />
-              with a long attention span
+              attention span.
             </h1>
 
-            <p className="text-lg text-slate-300 leading-relaxed max-w-2xl">
-              We&apos;re developers and designers who like sitting close to the work: real problems, long-term
-              relationships, and products that keep getting better instead of being rebuilt every year.
+            <p className="text-lg text-text-secondary leading-relaxed max-w-2xl">
+              We&apos;re developers and designers who prefer sitting close to the work: real problems, long-term
+              relationships, and products that evolve rather than being rebuilt every year.
             </p>
           </div>
         </section>
 
         {/* Philosophy Section */}
-        <section className="max-w-4xl mx-auto px-6 pb-16 md:pb-20 space-y-14">
-          <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-start">
+        <section className="container-width pb-20 space-y-16">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-semibold text-white">How we think about work</h2>
-              <p className="text-slate-300 text-base md:text-lg leading-relaxed">
-                We say no to a lot of things so we can say yes properly to a few. That means fewer parallel
+              <h2 className="text-2xl font-bold text-text-primary">How we think</h2>
+              <p className="text-text-secondary text-lg leading-relaxed">
+                We say no to a lot of things so we can say yes properly to a few. Fewer parallel
                 projects, more direct access, and room to think instead of just react.
               </p>
             </div>
 
-            <div className="space-y-4">
-              <div className="glass card-hover p-5 rounded-2xl border border-slate-700/70">
-                <div className="text-2xl mb-2">🎯</div>
-                <h3 className="text-white font-semibold mb-1.5">Clear targets</h3>
-                <p className="text-slate-400 text-sm">
-                  Every engagement has a small set of outcomes we can point to and say, &quot;that got better.&quot;
-                </p>
-              </div>
-              <div className="glass card-hover p-5 rounded-2xl border border-slate-700/70">
-                <div className="text-2xl mb-2">🔧</div>
-                <h3 className="text-white font-semibold mb-1.5">Deliberate engineering</h3>
-                <p className="text-slate-400 text-sm">
-                  We pick stacks and patterns that your team can live with in two, three, five years.
-                </p>
-              </div>
-              <div className="glass card-hover p-5 rounded-2xl border border-slate-700/70">
-                <div className="text-2xl mb-2">🧭</div>
-                <h3 className="text-white font-semibold mb-1.5">Honest guidance</h3>
-                <p className="text-slate-400 text-sm">
-                  We&apos;ll happily talk you out of work that doesn&apos;t serve the product, even if it&apos;s work
-                  we could bill.
-                </p>
-              </div>
+            <div className="space-y-6">
+              {[
+                {
+                  icon: "🎯",
+                  title: "Clear targets",
+                  desc: "Every engagement has a small set of outcomes we can point to and say, 'that got better.'"
+                },
+                {
+                  icon: "🔧",
+                  title: "Deliberate engineering",
+                  desc: "We pick stacks and patterns that your team can live with in two, three, five years."
+                },
+                {
+                  icon: "🧭",
+                  title: "Honest guidance",
+                  desc: "We'll happily talk you out of work that doesn't serve the product, even if it's work we could bill."
+                }
+              ].map(item => (
+                <div key={item.title} className="bg-surface p-5 rounded-xl border border-border hover:border-accent/30 transition-colors">
+                  <div className="flex items-start gap-4">
+                    <div className="text-xl grayscale opacity-80">{item.icon}</div>
+                    <div>
+                      <h3 className="font-semibold text-text-primary mb-1">{item.title}</h3>
+                      <p className="text-sm text-text-secondary leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="glass rounded-3xl border border-slate-700/70 p-6 md:p-8 space-y-6">
-            <h2 className="text-2xl md:text-3xl font-semibold text-white">What matters to us</h2>
-            <div className="space-y-5">
-              <div className="space-y-2">
-                <h3 className="text-sm font-semibold text-blue-300 uppercase tracking-[0.18em]">
-                  Simplicity that ages well
-                </h3>
-                <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-                  Complex systems impress in a demo and then quietly rot. We aim for designs and architectures that
-                  someone new on your team can understand in an afternoon.
-                </p>
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-sm font-semibold text-blue-300 uppercase tracking-[0.18em]">
-                  Design that stays out of the way
-                </h3>
-                <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-                  The best interfaces feel obvious in hindsight. We&apos;d rather your users talk about how much
-                  lighter their workload feels than our visual flourishes.
-                </p>
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-sm font-semibold text-blue-300 uppercase tracking-[0.18em]">
-                  Shared ownership
-                </h3>
-                <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-                  We try hard to feel like part of your team, not a vendor. That means clear docs, transparent
-                  decisions, and calm communication even when things are moving quickly.
-                </p>
-              </div>
+          <div className="bg-surface rounded-2xl border border-border p-8 md:p-12">
+            <h2 className="text-2xl font-bold text-text-primary mb-8">What matters to us</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  title: "Simplicity that ages well",
+                  desc: "Complex systems impress in a demo and then quietly rot. We aim for designs someone new on your team can understand in an afternoon."
+                },
+                {
+                  title: "Design that fades away",
+                  desc: "The best interfaces feel obvious. We'd rather your users talk about how much lighter their workload feels than our visual flourishes."
+                },
+                {
+                  title: "Shared ownership",
+                  desc: "We try hard to feel like part of your team, not a vendor. Clear docs, transparent decisions, and calm communication."
+                }
+              ].map(item => (
+                <div key={item.title} className="space-y-3">
+                  <h3 className="text-sm font-semibold text-accent uppercase tracking-wider">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-text-secondary leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="max-w-3xl mx-auto px-6 pb-24 text-center">
-          <div className="space-y-4">
-            <h2 className="text-3xl md:text-4xl font-semibold text-white">
+        <section className="container-width pb-24 text-center">
+          <div className="space-y-4 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-text-primary">
               Want a team that sticks around?
             </h2>
-            <p className="text-base md:text-lg text-slate-300">
-              If you&apos;re looking for a long-term product partner rather than a one-off build, we&apos;re probably
-              a good fit.
+            <p className="text-lg text-text-secondary">
+              If you&apos;re looking for a long-term product partner rather than a one-off build, we&apos;re probably a good fit.
             </p>
           </div>
-          <a
-            href="/contact"
-            className="mt-8 inline-flex items-center justify-center rounded-full border border-indigo-400/60 bg-slate-950/80 px-8 py-3 text-sm font-semibold text-indigo-100 shadow-[0_0_40px_rgba(129,140,248,0.45)] transition-all hover:border-indigo-300 hover:text-white"
-          >
-            Talk about your roadmap
-          </a>
+          <div className="mt-8">
+            <a href="/contact" className="btn-primary px-8">
+              Talk about your roadmap
+            </a>
+          </div>
         </section>
       </main>
     </ParallaxShell>
   );
 }
-
