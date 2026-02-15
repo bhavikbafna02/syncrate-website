@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/server";
-import { ModeToggle } from "@/components/mode-toggle";
+import NavActions from "@/components/NavActions";
 
 export default async function Navbar() {
   const supabase = await createClient();
@@ -13,7 +13,7 @@ export default async function Navbar() {
   const username = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Dashboard';
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/95 border-b border-border">
+    <nav className="sticky top-0 z-50 bg-background/95 border-b border-border backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo / Brand */}
         <Link
@@ -21,20 +21,20 @@ export default async function Navbar() {
           className="flex items-center hover:opacity-80 transition-opacity"
         >
           <Image
-            src="/logo_light.svg?v=2"
+            src="/logo_light.svg"
             alt="SYNCRATE"
-            width={140}
-            height={48}
+            width={196}
+            height={56}
             priority
-            className="h-12 w-auto block dark:hidden"
+            className="h-14 w-auto block [.dark_&]:hidden"
           />
           <Image
-            src="/logo.svg?v=2"
+            src="/logo.svg"
             alt="SYNCRATE"
-            width={140}
-            height={48}
+            width={196}
+            height={56}
             priority
-            className="h-12 w-auto hidden dark:block"
+            className="h-14 w-auto hidden [.dark_&]:block"
           />
         </Link>
 
@@ -42,43 +42,19 @@ export default async function Navbar() {
         <div className="flex gap-8 text-sm font-medium items-center">
           <Link
             href="/services"
-            className="text-text-secondary hover:text-text-primary transition-colors"
+            className="text-text-secondary hover:text-text-primary transition-colors hidden md:block"
           >
             Services
           </Link>
           <Link
             href="/about"
-            className="text-text-secondary hover:text-text-primary transition-colors"
+            className="text-text-secondary hover:text-text-primary transition-colors hidden md:block"
           >
             About
           </Link>
-          <div className="flex gap-4 items-center pl-4 border-l border-border">
-            <Link
-              href="/contact"
-              className="text-text-secondary hover:text-text-primary transition-colors mr-2"
-            >
-              Contact
-            </Link>
-            <ModeToggle />
 
-            {user ? (
-              <Link
-                href="/dashboard"
-                className="btn-secondary truncate max-w-[200px]"
-              >
-                {username}
-              </Link>
-            ) : (
-              <Link
-                href="/login"
-                className="btn-primary"
-              >
-                Login
-              </Link>
-            )}
-
-
-          </div>
+          {/* Interactive Actions (Client Component) */}
+          <NavActions user={user} username={username} />
         </div>
       </div>
     </nav>
