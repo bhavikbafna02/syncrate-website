@@ -21,12 +21,20 @@ export default async function Navbar() {
           className="flex items-center hover:opacity-80 transition-opacity"
         >
           <Image
-            src="/logo.svg"
+            src="/logo_light.svg?v=2"
             alt="SYNCRATE"
-            width={120}
-            height={40}
+            width={140}
+            height={48}
             priority
-            className="h-10 w-auto invert dark:invert-0"
+            className="h-12 w-auto block dark:hidden"
+          />
+          <Image
+            src="/logo.svg?v=2"
+            alt="SYNCRATE"
+            width={140}
+            height={48}
+            priority
+            className="h-12 w-auto hidden dark:block"
           />
         </Link>
 
