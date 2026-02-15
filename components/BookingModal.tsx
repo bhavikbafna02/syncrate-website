@@ -85,7 +85,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 <div className="flex-1 w-full bg-background relative overflow-hidden">
                     <div
                         className="calendly-inline-widget w-full h-full"
-                        data-url="https://calendly.com/YOUR_USERNAME/30min?hide_gdpr_banner=1&background_color=0f1115&text_color=f8fafc&primary_color=5b6cff"
+                        data-url="https://calendly.com/syncratetech?hide_gdpr_banner=1&background_color=0f1115&text_color=f8fafc&primary_color=5b6cff"
                         style={{ width: "100%", height: "100%" }}
                     ></div>
                 </div>
