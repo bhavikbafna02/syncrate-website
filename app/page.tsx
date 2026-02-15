@@ -1,4 +1,4 @@
-
+import Link from "next/link";
 import ParallaxShell from "@/components/ParallaxShell";
 
 export default function Home() {
@@ -6,7 +6,7 @@ export default function Home() {
     <ParallaxShell>
       <main className="min-h-[calc(100vh-60px)] flex flex-col justify-center">
         {/* Hero Section */}
-        <section className="container-width pt-32 pb-20 md:pb-32 grid md:grid-cols-[1.2fr_1fr] gap-12 items-center">
+        <section className="container-width pt-32 pb-20 md:pb-32 flex flex-col justify-center">
           <div className="space-y-8 animate-fade-in">
             <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-medium tracking-wider text-text-secondary uppercase">
               <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
@@ -27,13 +27,17 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="/contact" className="inline-flex items-center justify-center rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-slate-800 dark:bg-[#5B6CFF] dark:hover:bg-[#4C5BE0]">
+              <Link
+                href="/contact"
+                className="btn-primary"
+                style={{ backgroundColor: '#5B6CFF', color: 'white', borderColor: '#5B6CFF' }}
+              >
                 Start a conversation
-              </a>
+              </Link>
 
-              <a href="/services" className="btn-secondary">
+              <Link href="/services" className="btn-secondary">
                 See our work
-              </a>
+              </Link>
             </div>
 
             <div className="flex flex-wrap gap-3 pt-4">
@@ -46,35 +50,7 @@ export default function Home() {
           </div>
 
           {/* Hero Visual - Minimal Cards */}
-          <div className="relative hidden md:block">
-            <div className="relative mx-auto w-full max-w-sm rounded-2xl border border-border bg-surface/50 backdrop-blur-sm p-6 shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-emerald-500" />
-                  <span className="text-xs font-semibold text-text-primary uppercase tracking-wider">Active Projects</span>
-                </div>
-                <span className="text-[10px] font-mono text-text-tertiary">SYNC-001</span>
-              </div>
 
-              <div className="space-y-4">
-                {[
-                  { title: "Dashboard Redesign", status: "In Progress", meta: "B2B SaaS" },
-                  { title: "AI Knowledge Base", status: "Review", meta: "Internal Tool" },
-                  { title: "Marketing Site", status: "Shipped", meta: "Fintech" },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center justify-between p-3 rounded-lg border border-border bg-background/50">
-                    <div>
-                      <h4 className="text-sm font-medium text-text-primary">{item.title}</h4>
-                      <p className="text-[11px] text-text-tertiary">{item.meta}</p>
-                    </div>
-                    <span className="text-[10px] font-medium text-text-secondary bg-surface-highlight px-2 py-0.5 rounded">
-                      {item.status}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
         </section>
 
         {/* Features Minimal Grid */}
@@ -124,9 +100,13 @@ export default function Home() {
           <p className="text-text-secondary max-w-xl mx-auto mb-8">
             We work with founders who value craft and clarity. Send us a note about your project.
           </p>
-          <a href="/contact" className="btn-primary px-8">
+          <Link
+            href="/contact"
+            className="btn-primary px-8"
+            style={{ backgroundColor: '#5B6CFF', color: 'white' }}
+          >
             Get in touch
-          </a>
+          </Link>
         </section>
       </main>
     </ParallaxShell>
