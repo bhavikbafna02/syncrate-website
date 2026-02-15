@@ -41,6 +41,12 @@ export default async function Navbar() {
         {/* Navigation Links */}
         <div className="flex gap-8 text-sm font-medium items-center">
           <Link
+            href="/"
+            className="text-text-secondary hover:text-text-primary transition-colors hidden md:block"
+          >
+            Home
+          </Link>
+          <Link
             href="/services"
             className="text-text-secondary hover:text-text-primary transition-colors hidden md:block"
           >
@@ -51,6 +57,12 @@ export default async function Navbar() {
             className="text-text-secondary hover:text-text-primary transition-colors hidden md:block"
           >
             About
+          </Link>
+          <Link
+            href="/audit"
+            className="text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors font-semibold hidden md:block"
+          >
+            Free Audit
           </Link>
 
           {/* Interactive Actions (Client Component) */}
