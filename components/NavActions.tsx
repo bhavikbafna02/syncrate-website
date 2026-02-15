@@ -37,7 +37,7 @@ export default function NavActions({ user, username }: NavActionsProps) {
                         {username}
                     </Link>
                 ) : (
-                    <Link href="/login" className="btn-ghost hidden sm:inline-flex h-9">
+                    <Link href="/login" className="btn-secondary hidden sm:inline-flex h-9">
                         Login
                     </Link>
                 )}
@@ -45,7 +45,7 @@ export default function NavActions({ user, username }: NavActionsProps) {
                 {/* Primary CTA: Book Appointment */}
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="btn-primary h-9 whitespace-nowrap ml-2 shadow-lg shadow-accent/20"
+                    className="btn-primary h-9 whitespace-nowrap ml-2 border border-accent/30 shadow-lg shadow-accent/20"
                 >
                     Book Appointment
                 </button>
