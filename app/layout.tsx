@@ -7,8 +7,8 @@ import SynBot from "@/components/SynBot";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-  title: "Syncrate",
-  description: "Technology that feels calm, not chaotic.",
+  title: "Syncrate: Websites, AI and Automation for Startups",
+  description: "We design and build software that doesn't embarrass you. Websites, AI systems, and automations done right, shipped fast.",
 };
 
 export default function RootLayout({

@@ -57,7 +57,7 @@ export default function ContactPage() {
               Let&apos;s build something specific
             </h1>
             <p className="text-lg text-text-secondary max-w-xl mx-auto">
-              A short, honest message is perfect. No pitch decks needed — just tell us where you are and what&apos;s stuck.
+              A short, honest message is perfect. No pitch decks needed. Just tell us where you are and what&apos;s stuck.
             </p>
           </div>
         </section>

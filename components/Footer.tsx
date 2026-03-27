@@ -1,37 +1,39 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
-    <footer className="border-t border-border mt-20 bg-background">
-      <div className="max-w-6xl mx-auto px-6 py-12 flex flex-col gap-6 md:flex-row md:items-center md:justify-between text-sm text-text-secondary">
-        {/* Left */}
-        <div className="space-y-1">
-          <p className="text-text-primary font-medium">
-            © {new Date().getFullYear()} Syncrate.
-          </p>
-          <p className="text-text-tertiary">
-            Quietly building useful things.
-          </p>
-        </div>
+    <footer className="border-t border-border bg-background">
+      <div className="max-w-6xl mx-auto px-6 py-14">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
 
-        {/* Right */}
-        <div className="flex flex-wrap gap-6 md:justify-end font-medium">
-          <a
-            href="/services"
-            className="hover:text-text-primary transition-colors"
-          >
-            Services
-          </a>
-          <a
-            href="/about"
-            className="hover:text-text-primary transition-colors"
-          >
-            About
-          </a>
-          <a
-            href="/contact"
-            className="hover:text-text-primary transition-colors"
-          >
-            Contact
-          </a>
+          {/* Left: Brand */}
+          <div className="max-w-xs space-y-3">
+            <p className="text-text-primary font-bold text-base tracking-tight">Syncrate</p>
+            <p className="text-text-tertiary text-sm leading-relaxed">
+              A small studio building software that actually holds up. Websites, AI, automations done right.
+            </p>
+            <p className="text-text-tertiary text-xs">
+              © {new Date().getFullYear()} Syncrate. All rights reserved.
+            </p>
+          </div>
+
+          {/* Right: Links */}
+          <div className="flex flex-wrap gap-10 text-sm font-medium text-text-secondary">
+            <div className="space-y-3">
+              <p className="text-[11px] font-bold uppercase tracking-widest text-text-tertiary">Work</p>
+              <ul className="space-y-2">
+                <li><Link href="/services" className="hover:text-text-primary transition-colors">Services</Link></li>
+                <li><Link href="/audit" className="hover:text-text-primary transition-colors text-accent">Free Audit</Link></li>
+              </ul>
+            </div>
+            <div className="space-y-3">
+              <p className="text-[11px] font-bold uppercase tracking-widest text-text-tertiary">Company</p>
+              <ul className="space-y-2">
+                <li><Link href="/about" className="hover:text-text-primary transition-colors">About</Link></li>
+                <li><Link href="/contact" className="hover:text-text-primary transition-colors">Contact</Link></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
