@@ -1,7 +1,7 @@
 
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
-
+import Image from 'next/image'
 
 export default async function Dashboard() {
     const supabase = await createClient()
@@ -34,10 +34,19 @@ export default async function Dashboard() {
 
                 {/* User Profile Card */}
                 <div className="bg-surface border border-border rounded-xl p-8 flex flex-col items-center text-center shadow-sm">
-                    <div className="relative w-24 h-24 mb-6 rounded-full overflow-hidden border-2 border-border shadow-sm">
-                        <div className="w-full h-full bg-surface-highlight flex items-center justify-center text-3xl font-bold text-accent">
-                            {displayName.charAt(0).toUpperCase()}
-                        </div>
+                    <div className="relative w-24 h-24 mb-6 rounded-full overflow-hidden border-2 border-border">
+                        {avatar_url ? (
+                            <Image
+                                src={avatar_url}
+                                alt={displayName}
+                                fill
+                                className="object-cover"
+                            />
+                        ) : (
+                            <div className="w-full h-full bg-surface-highlight flex items-center justify-center text-3xl font-bold text-accent">
+                                {displayName.charAt(0).toUpperCase()}
+                            </div>
+                        )}
                     </div>
 
                     <h2 className="text-xl font-bold text-text-primary mb-1">
