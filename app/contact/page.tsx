@@ -35,7 +35,7 @@ export default function ContactPage() {
         throw new Error(data.error || 'Something went wrong');
       }
 
-      setSuccessMessage("✓ Message sent successfully! We'll get back to you soon.");
+      setSuccessMessage("✓ Sent! We'll get back to you soon.");
       form.reset();
     } catch (err: any) {
       setErrorMessage(err.message || 'Failed to send message');
@@ -49,15 +49,15 @@ export default function ContactPage() {
       <main className="min-h-screen">
         {/* Header */}
         <section className="container-width pt-24 pb-12 text-center">
-          <div className="space-y-6 animate-slide-up">
+          <div className="space-y-4 animate-slide-up">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-medium tracking-widest text-text-secondary uppercase">
-              Contact Us
+              Contact
             </span>
             <h1 className="text-4xl md:text-5xl font-bold text-text-primary tracking-tight">
-              Let&apos;s build something specific
+              Tell us what you need
             </h1>
-            <p className="text-lg text-text-secondary max-w-xl mx-auto">
-              A short, honest message is perfect. No pitch decks needed. Just tell us where you are and what&apos;s stuck.
+            <p className="text-lg text-text-secondary max-w-md mx-auto">
+              No pitch decks. Just tell us what&apos;s stuck.
             </p>
           </div>
         </section>
@@ -107,20 +107,20 @@ export default function ContactPage() {
                 <input
                   name="company"
                   type="text"
-                  placeholder="Your company (optional)"
+                  placeholder="Optional"
                   className="w-full px-4 py-2 bg-background text-text-primary placeholder-text-tertiary border border-border rounded-lg focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all"
                 />
               </div>
 
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-text-primary">
-                  What would you like to work on?
+                  What do you need?
                 </label>
                 <textarea
                   name="message"
                   required
-                  rows={5}
-                  placeholder="A paragraph about your product, team size, and what you'd like to see change over the next few months."
+                  rows={4}
+                  placeholder="Your product, your problem, what you'd like to change."
                   className="w-full px-4 py-2 bg-background text-text-primary placeholder-text-tertiary border border-border rounded-lg focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all resize-none"
                 />
               </div>
@@ -134,7 +134,7 @@ export default function ContactPage() {
                 {isSubmitting ? "Sending…" : "Send message"}
               </button>
 
-              <p className="text-xs text-text-tertiary text-center">We usually respond within one business day.</p>
+              <p className="text-xs text-text-tertiary text-center">We respond within one business day.</p>
             </form>
           </div>
         </section>
@@ -155,13 +155,13 @@ export default function ContactPage() {
           <div>
             <div className="text-2xl mb-2 grayscale">💼</div>
             <h3 className="font-semibold text-text-primary">Services</h3>
-            <p className="text-text-secondary text-sm">Websites, product UX, AI, automation</p>
+            <p className="text-text-secondary text-sm">Websites, AI, automation</p>
           </div>
 
           <div>
             <div className="text-2xl mb-2 grayscale">⏱️</div>
-            <h3 className="font-semibold text-text-primary">Response time</h3>
-            <p className="text-text-secondary text-sm">Within 24 hours on weekdays</p>
+            <h3 className="font-semibold text-text-primary">Response</h3>
+            <p className="text-text-secondary text-sm">Within 24h on weekdays</p>
           </div>
         </section>
       </main>
