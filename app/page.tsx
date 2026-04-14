@@ -67,14 +67,14 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-accent-highlight active:scale-[0.98]"
+                className="group inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/25 transition-all duration-200 hover:bg-accent-highlight hover:shadow-accent/40 active:scale-[0.98]"
               >
                 Start a project
                 <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
               </Link>
               <Link
                 href="/audit"
-                className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-6 py-3 text-sm font-semibold text-text-primary transition-all duration-200 hover:border-accent/50 hover:bg-surface-highlight active:scale-[0.98]"
+                className="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-border bg-surface px-6 py-3 text-sm font-semibold text-text-primary transition-all duration-200 hover:border-accent/50 hover:bg-surface-highlight active:scale-[0.98]"
               >
                 Free site audit
               </Link>

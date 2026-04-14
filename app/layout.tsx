@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import type { Metadata } from "next";
 import SynBot from "@/components/SynBot";
+import { ThemeProvider } from "@/components/theme-provider";
 
 
 export const metadata: Metadata = {
@@ -17,14 +18,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
-        <Navbar />
-        <PageTransition>
-          <main>{children}</main>
-        </PageTransition>
-        <Footer />
-        <SynBot />
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <Navbar />
+          <PageTransition>
+            <main>{children}</main>
+          </PageTransition>
+          <Footer />
+          <SynBot />
+        </ThemeProvider>
       </body>
     </html>
   );
