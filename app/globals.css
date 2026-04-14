@@ -14,98 +14,82 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-highlight: var(--accent-highlight);
+  --color-accent-muted: var(--accent-muted);
+
+  /* Slightly warmer surface for visual interest */
+  --color-warm-surface: var(--warm-surface);
 
   --font-sans: 'Inter', system-ui, sans-serif;
 
-  /* Animation Tokens */
-  --animate-fade-in: fadeIn 0.6s ease-out both;
-  --animate-slide-up: slideUp 0.6s ease-out both;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-shimmer: shimmer 2s linear infinite;
+  /* Animation — staggered, slightly asymmetric */
+  --animate-fade-in: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-slide-up: slideUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-slide-up-delay: slideUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) 120ms both;
+  --animate-slide-up-delay2: slideUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) 240ms both;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-bounce-in: bounceIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 
   @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
 
   @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    0%,100% { transform: translateY(0px) rotate(0deg); }
+    33%     { transform: translateY(-8px) rotate(0.5deg); }
+    66%     { transform: translateY(-4px) rotate(-0.3deg); }
   }
 
   @keyframes shimmer {
     from { background-position: -200% center; }
-    to { background-position: 200% center; }
+    to   { background-position: 200% center; }
+  }
+
+  @keyframes bounceIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to   { opacity: 1; transform: scale(1); }
   }
 }
 
 /* Base Variables */
 :root {
-  /* Common Light Mode */
-  --background: #F8FAFC;
-  /* Clean minimal light bg */
+  --background: #F7F8FA;
   --surface: #FFFFFF;
-  /* Pure white surface */
-  --surface-highlight: #F1F5F9;
-  /* Slight grey for hover */
-  --border: #E2E8F0;
-  /* Subtle border */
+  --surface-highlight: #EFF1F5;
+  --border: #DDE1EA;
+  --warm-surface: #FAFAF8;
 
-  --text-primary: #0F172A;
-  /* Deep slate/black */
-  --text-secondary: #475569;
-  /* Darker slate for better readability */
-  --text-tertiary: #64748B;
-  /* Medium slate */
+  --text-primary: #111318;
+  --text-secondary: #4A5568;
+  --text-tertiary: #718096;
 
-  --accent: #5B6CFF;
-  /* Muted Indigo */
+  --accent: #4F5FE8;
   --accent-foreground: #FFFFFF;
-  /* White checks on blue */
-  --accent-highlight: #4C5BE0;
-  /* Slightly darker hover */
+  --accent-highlight: #3D4DD6;
+  --accent-muted: #EEF0FD;
 }
 
 .dark {
-  /* Premium Dark Mode */
-  --background: #0F1115;
-  /* Deep neutral dark */
-  --surface: #161920;
-  /* Slightly elevated surface */
-  --surface-highlight: #1F232D;
-  /* Hover state */
-  --border: #242935;
-  /* Subtle dark border */
+  --background: #0D0F14;
+  --surface: #13161D;
+  --surface-highlight: #1C2030;
+  --border: #1F2433;
+  --warm-surface: #15171E;
 
-  --text-primary: #F8FAFC;
-  /* Off-white primary text */
-  --text-secondary: #94A3B8;
-  /* Muted secondary text */
-  --text-tertiary: #64748B;
-  /* Deeper tertiary text */
+  --text-primary: #F0F2F8;
+  --text-secondary: #8896B0;
+  --text-tertiary: #5A6580;
 
   --accent: #5B6CFF;
-  /* Use same indigo or adjust slightly if needed */
   --accent-foreground: #FFFFFF;
   --accent-highlight: #7080FF;
-  /* Lighter hover for dark mode visibility */
+  --accent-muted: #1A1E3A;
 }
 
 /* Reset & Base Styles */
@@ -115,7 +99,11 @@
   }
 
   body {
-    @apply bg-background text-text-primary antialiased;
+    background-color: var(--background);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
@@ -126,18 +114,24 @@
 }
 
 @utility glass-panel {
-  /* Subtle transparency, minimal blur only if needed, mostly solid for clean look */
   @apply bg-surface/80 backdrop-blur-sm border-b border-border;
 }
 
+/* Tactile primary button — slight bounce on hover, shadow lift */
 @utility btn-primary {
-  @apply inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-accent/25 transition-all duration-200 hover:bg-accent-highlight hover:shadow-accent/40 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  @apply inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-accent/20 transition-all duration-200 hover:-translate-y-[1px] hover:bg-accent-highlight hover:shadow-lg hover:shadow-accent/30 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 active:translate-y-[1px] active:shadow-sm active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
 }
 
+/* Secondary — border darkens on hover, no lift */
 @utility btn-secondary {
-  @apply inline-flex items-center justify-center rounded-lg border border-[#CBD5E1] bg-surface px-5 py-2.5 text-sm font-medium text-text-primary transition-all duration-200 hover:bg-surface-highlight hover:border-[#94A3B8] hover:text-text-primary focus:outline-none focus:ring-2 focus:ring-border focus:ring-offset-2 active:scale-[0.98] dark:border-border dark:hover:border-border;
+  @apply inline-flex items-center justify-center rounded-lg border border-[#C8CDD8] bg-surface px-5 py-2.5 text-sm font-medium text-text-primary transition-all duration-200 hover:bg-surface-highlight hover:border-[#9BA3B4] hover:text-text-primary focus:outline-none focus:ring-2 focus:ring-border focus:ring-offset-2 active:scale-[0.98] dark:border-border dark:hover:border-[#3A4255];
 }
 
 @utility btn-ghost {
-  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary hover:bg-surface-highlight;
+  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-text-secondary transition-all duration-150 hover:text-text-primary hover:bg-surface-highlight;
 }
+
+/* Stagger delay utilities */
+@utility delay-100 { transition-delay: 100ms; animation-delay: 100ms; }
+@utility delay-200 { transition-delay: 200ms; animation-delay: 200ms; }
+@utility delay-300 { transition-delay: 300ms; animation-delay: 300ms; }
