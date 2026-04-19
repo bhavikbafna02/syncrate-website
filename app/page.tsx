@@ -6,61 +6,64 @@ import { useState } from "react";
 
 /* ─── DATA ──────────────────────────────────────────────────────────── */
 
-const features = [
+const services = [
   {
     num: "01",
-    title: "Interfaces",
-    desc: "Marketing sites, web apps, design systems built to convert — not to win awards.",
+    title: "Web Development",
+    benefit: "Sites that load fast, look sharp, and actually convert.",
     items: ["Marketing Sites", "Web Apps", "Design Systems"],
-    // Each card has a slightly different hover and layout feel
-    hoverClass: "hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-400/40",
-    bgClass: "bg-white dark:bg-surface",
-    accentLine: "bg-indigo-400",
+    accent: "bg-indigo-400",
+    hover: "hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/8 hover:border-indigo-400/30",
   },
   {
     num: "02",
-    title: "Intelligence",
-    desc: "RAG pipelines, document chat, internal tools. We build things you'd actually use on a Tuesday.",
-    items: ["RAG Pipelines", "Custom Assistants", "Data Analysis"],
-    // Slightly larger, more prominent — intentional asymmetry
-    hoverClass: "hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-500/15 hover:border-blue-400/40",
-    bgClass: "bg-surface-highlight/40 dark:bg-surface dark:border-[#2A3045]",
-    accentLine: "bg-blue-400",
+    title: "SEO Optimization",
+    benefit: "Get found by the people already searching for what you do.",
+    items: ["Technical SEO", "Content Strategy", "Performance Audits"],
+    accent: "bg-blue-400",
+    hover: "hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/8 hover:border-blue-400/30",
   },
   {
     num: "03",
-    title: "Systems",
-    desc: "Automations, APIs, backends. Built clean enough that the next engineer doesn't hate us.",
-    items: ["Workflow Automation", "API Integration", "Database Design"],
-    hoverClass: "hover:translate-x-1 hover:shadow-lg hover:shadow-violet-500/10 hover:border-violet-400/40",
-    bgClass: "bg-white dark:bg-surface",
-    accentLine: "bg-violet-400",
+    title: "UI/UX Design",
+    benefit: "Interfaces people enjoy using, built around how they actually behave.",
+    items: ["Product Design", "Design Systems", "Usability Research"],
+    accent: "bg-violet-400",
+    hover: "hover:-translate-y-1 hover:shadow-lg hover:shadow-violet-500/8 hover:border-violet-400/30",
+  },
+  {
+    num: "04",
+    title: "LinkedIn Growth",
+    benefit: "Turn your profile into an inbound lead channel. Without cold DMs.",
+    items: ["Profile Optimization", "Personal Branding", "Content Direction"],
+    accent: "bg-emerald-400",
+    hover: "hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/8 hover:border-emerald-400/30",
   },
 ];
 
-const onboardingSteps = [
+const steps = [
   {
     num: "1",
-    title: "You fill out a short form.",
-    desc: "Not a 40-field intake. Just: what's the problem, what's broken, what does success look like in 3 months.",
+    title: "Fill out a short form.",
+    desc: "What's the problem, what's broken, what does success look like. No 40-field intake.",
     time: "~5 min",
   },
   {
     num: "2",
-    title: "We have one real conversation.",
-    desc: "One focused call — no slides, no discovery theatre. We ask the questions that actually matter.",
-    time: "30–45 min",
+    title: "One real conversation.",
+    desc: "One focused call. No slide decks, no discovery theatre. Just the questions that matter.",
+    time: "30 to 45 min",
   },
   {
     num: "3",
     title: "You get a one-page plan.",
-    desc: "A short doc with scope, timeline, and a fixed price. You can read it in under 5 minutes.",
-    time: "2–3 days",
+    desc: "Scope, timeline, fixed price. Written clearly enough to read in under 5 minutes.",
+    time: "2 to 3 days",
   },
   {
     num: "4",
-    title: "We start and you see progress weekly.",
-    desc: "No radio silence. Demos every Friday. Real code, not mockups.",
+    title: "Progress every week.",
+    desc: "Demos on Fridays. Real code, not mockups. No radio silence.",
     time: "From week 1",
   },
 ];
@@ -70,16 +73,16 @@ const pricing = [
     name: "Starter",
     price: "$3,500",
     unit: "one-time",
-    tagline: "For early-stage founders who need a real website, fast.",
-    honest: "Honestly — this is for 'I need something live and credible in 2 weeks.'",
+    tagline: "A real website, live in two weeks.",
+    honest: "For founders who need something credible up fast.",
     includes: [
       "Marketing site (up to 6 pages)",
       "Copy editing included",
-      "Basic contact form + analytics",
+      "Contact form + analytics",
       "2 rounds of revisions",
-      "Deployed & handed off cleanly",
+      "Clean handoff",
     ],
-    notIncluded: ["CMS setup", "Custom illustrations", "Ongoing support"],
+    notIncluded: ["CMS", "Custom illustrations", "Ongoing support"],
     cta: "Talk about this",
     highlight: false,
   },
@@ -87,16 +90,16 @@ const pricing = [
     name: "Build",
     price: "$8,000+",
     unit: "project",
-    tagline: "For teams who need a real product built, not a concept validated.",
-    honest: "This is our most common engagement. Most projects land between $8k–$18k.",
+    tagline: "A full product built properly.",
+    honest: "Most projects land between $8k and $18k. Fixed quote after first call.",
     includes: [
       "Full web app or AI system",
-      "Database design + API layer",
+      "Database + API layer",
       "Auth, admin, integrations",
-      "Weekly demos, no surprises",
+      "Weekly demos",
       "Deployed with documentation",
     ],
-    notIncluded: ["Ongoing bug fixes after 30 days (retainer available)", "Marketing"],
+    notIncluded: ["Bug fixes after 30 days — retainer available separately"],
     cta: "Discuss your project",
     highlight: true,
   },
@@ -104,14 +107,14 @@ const pricing = [
     name: "Retain",
     price: "$2,200",
     unit: "/month",
-    tagline: "For teams who want a technical partner, not a vendor.",
-    honest: "Most of our long-term clients started here after a Build project.",
+    tagline: "A technical partner on call.",
+    honest: "Most long-term clients started here after a Build project.",
     includes: [
-      "20hrs/month of dev & design time",
+      "20 hrs/month of dev & design",
       "Priority response (same-day)",
       "Monthly strategy call",
-      "Ongoing improvements & fixes",
-      "Cancel anytime, no drama",
+      "Ongoing fixes & improvements",
+      "Cancel anytime",
     ],
     notIncluded: ["Large feature builds (scoped separately)"],
     cta: "Start the conversation",
@@ -121,54 +124,46 @@ const pricing = [
 
 const faqs = [
   {
-    q: "What if this doesn't work for my use case?",
-    a: "It happens. We've turned down projects that weren't a good fit, and honestly told clients when a cheaper solution already exists. If we're not the right team for your problem, we'll say so in the first call — not after you've paid a deposit.",
+    q: "What if it doesn't fit my use case?",
+    a: "We've turned down projects that weren't right, and told clients when a cheaper option already exists. If we're the wrong team, we'll say so in the first call. Not after you've paid a deposit.",
   },
   {
-    q: "How long does setup actually take?",
-    a: "First demo is usually in 2–3 weeks. Full projects ship in 4–10 weeks depending on scope. We don't over-promise on timelines — the one-page plan we send you will have specific dates, not vague estimates.",
+    q: "How long does it take?",
+    a: "First demo in 2 to 3 weeks. Full projects in 4 to 10 weeks depending on scope. The one-page plan you get after our call has specific dates, not vague estimates.",
   },
   {
-    q: "Do I need technical knowledge to work with you?",
-    a: "No. We've worked with non-technical founders, ops teams, and solo consultants. If you know what outcome you want, we'll figure out the 'how'. We just ask that you're decisive and responsive — context-switching kills timelines.",
+    q: "Do I need technical knowledge?",
+    a: "No. We've worked with non-technical founders, ops leads, and solo consultants. You bring the problem. We figure out the how. We just need you to be responsive. Slow decisions cost time.",
   },
   {
-    q: "Can I see examples of past work?",
-    a: "We show work on calls, not on a public portfolio page. Some clients prefer we don't list them. If that's a dealbreaker, we understand — we'd rather be upfront about it than hide it.",
+    q: "Can I see past work?",
+    a: "We show work on calls, not on a public portfolio. Some clients prefer we don't list them. If that's a dealbreaker, fair. We'd rather say so now.",
   },
   {
-    q: "What happens if the project goes over scope?",
-    a: "We catch scope creep early and tell you. If something changes, we'll send a short scope update with the cost impact before we build it. No surprise invoices at the end.",
+    q: "What if the project goes over scope?",
+    a: "We flag it early. If something changes, we'll send a short scope update with cost impact before building anything. No surprise invoices.",
   },
 ];
 
-/* ─── FAQ ACCORDION ─────────────────────────────────────────────────── */
+/* ─── COMPONENTS ────────────────────────────────────────────────────── */
 
 function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
     <div
-      className="border-b border-border/60 last:border-0 cursor-pointer"
+      className="border-b border-border/50 last:border-0 cursor-pointer"
       onClick={() => setOpen(!open)}
     >
       <div className="flex items-start justify-between gap-4 py-5 group">
-        <p
-          className={`text-base font-semibold transition-colors duration-150 ${
-            open ? "text-accent" : "text-text-primary group-hover:text-accent"
-          }`}
-        >
+        <p className={`text-[15px] font-semibold leading-snug transition-colors duration-150 ${open ? "text-accent" : "text-text-primary group-hover:text-accent"}`}>
           {q}
         </p>
-        <span
-          className={`text-text-tertiary mt-0.5 flex-shrink-0 text-lg leading-none transition-all duration-200 ${
-            open ? "rotate-45 text-accent" : ""
-          }`}
-        >
+        <span className={`text-text-tertiary mt-0.5 flex-shrink-0 text-base leading-none transition-all duration-200 ${open ? "rotate-45 text-accent" : ""}`}>
           +
         </span>
       </div>
       {open && (
-        <p className="text-text-secondary text-[15px] leading-relaxed pb-5 animate-fade-in">
+        <p className="text-text-secondary text-sm leading-relaxed pb-5 max-w-2xl animate-fade-in">
           {a}
         </p>
       )}
@@ -183,129 +178,103 @@ export default function Home() {
     <ParallaxShell>
       <main>
 
-        {/* ─── HERO ────────────────────────────────────────────────
-            Intentionally left-heavy — headline takes most of width  */}
-        <section className="container-width pt-32 pb-20 md:pt-44 md:pb-28">
-          <div className="max-w-5xl">
+        {/* ── HERO ─────────────────────────────────────────────────── */}
+        <section className="relative overflow-hidden">
+          <div aria-hidden className="pointer-events-none absolute inset-0">
+            <div className="absolute -top-48 -right-48 w-[700px] h-[700px] rounded-full bg-accent/5 blur-[140px]" />
+            <div className="absolute bottom-0 left-1/4 w-[500px] h-[400px] rounded-full bg-violet-500/4 blur-[120px]" />
+          </div>
 
-            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-semibold tracking-widest text-text-secondary uppercase mb-10 animate-fade-in">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Taking on new projects · April 2026
-            </div>
-
-            {/* Headline — Syne font, slightly uneven line breaks on purpose */}
-            <h1 className="text-5xl sm:text-6xl md:text-[70px] font-bold leading-[1.04] tracking-tight text-text-primary mb-7 animate-slide-up">
-              We build software<br />
-              <span className="text-accent">you&apos;re proud of.</span>
-              <span className="text-text-tertiary dark:text-text-tertiary text-4xl md:text-5xl font-normal block mt-2">
-                (and that actually works.)
-              </span>
-            </h1>
-
-            {/* Subheadline — slightly indented to break the grid */}
-            <p className="text-xl text-text-secondary leading-relaxed max-w-2xl mb-3 ml-0.5 animate-slide-up-delay">
-              Syncrate is a 3-person technical studio. We design websites, build custom tools, and automate workflows — without the agency overhead or the offshore handoff.
-            </p>
-            <p className="text-sm text-text-tertiary max-w-lg ml-0.5 mb-12 animate-slide-up-delay">
-              We take 2–3 projects at a time. That&apos;s intentional.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3 animate-slide-up-delay2">
-              <Link
-                href="/contact"
-                className="group inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-accent/25 transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent-highlight hover:shadow-accent/40 active:translate-y-0 active:shadow-md"
-              >
-                Tell us what you&apos;re building
-                <span className="transition-all duration-200 group-hover:translate-x-1.5 group-hover:opacity-100">→</span>
-              </Link>
-              <Link
-                href="/audit"
-                className="inline-flex items-center gap-2 rounded-lg border border-[#C8CDD8] dark:border-border bg-surface px-6 py-3.5 text-sm font-semibold text-text-primary transition-all duration-150 hover:border-[#9BA3B4] dark:hover:border-[#3A4255] hover:bg-surface-highlight active:scale-[0.98]"
-              >
-                Free site audit first
-              </Link>
-            </div>
-
-            {/* Social proof — not perfectly spaced */}
-            <div className="mt-14 pt-10 border-t border-border/60 flex flex-wrap gap-10 items-end">
-              <div>
-                <p className="text-3xl font-bold text-text-primary tabular-nums">12+</p>
-                <p className="text-xs text-text-tertiary mt-1">Projects shipped</p>
+          <div className="container-width relative z-10 pt-36 pb-24 md:pt-48 md:pb-32">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-semibold tracking-widest text-text-secondary uppercase mb-10 animate-fade-in">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Taking on new projects · April 2026
               </div>
-              <div>
-                <p className="text-3xl font-bold text-text-primary tabular-nums">3 wks</p>
-                <p className="text-xs text-text-tertiary mt-1">Avg. first demo</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-text-primary tabular-nums">~80%</p>
-                <p className="text-xs text-text-tertiary mt-1">Come back for more work</p>
-              </div>
-              <p className="text-xs text-text-tertiary italic self-end pb-0.5">
-                (we don&apos;t say 100% because that&apos;d be a little suspicious)
+
+              <h1 className="text-5xl sm:text-[58px] md:text-[68px] font-bold leading-[1.04] tracking-tight text-text-primary mb-6 animate-slide-up">
+                We build things<br />
+                <span className="text-accent">you&apos;re proud to ship.</span>
+              </h1>
+
+              <p className="text-lg text-text-secondary leading-relaxed max-w-xl mb-10 animate-slide-up-delay">
+                Syncrate is a small technical studio. We do websites, AI tools, and automations. No agency overhead, no offshore handoff, no endless revisions.
               </p>
+
+              <div className="flex flex-col sm:flex-row gap-3 animate-slide-up-delay2">
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-accent/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent-highlight hover:shadow-accent/35 active:translate-y-0"
+                >
+                  Tell us what you&apos;re building
+                  <span className="transition-transform duration-200 group-hover:translate-x-1.5">→</span>
+                </Link>
+                <Link
+                  href="/audit"
+                  className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-6 py-3.5 text-sm font-semibold text-text-primary transition-all duration-150 hover:bg-surface-highlight hover:border-border/80 active:scale-[0.98]"
+                >
+                  Free site audit first
+                </Link>
+              </div>
+
+              <div className="mt-16 pt-10 border-t border-border/50 grid grid-cols-3 gap-10 animate-fade-in">
+                {[
+                  { val: "12+", label: "Projects shipped" },
+                  { val: "3 wks", label: "Avg. first demo" },
+                  { val: "~80%", label: "Come back for more" },
+                ].map((s) => (
+                  <div key={s.label}>
+                    <p className="text-2xl font-bold text-text-primary tabular-nums">{s.val}</p>
+                    <p className="text-xs text-text-tertiary mt-1">{s.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ─── WHAT WE DO ──────────────────────────────────────────
-            Asymmetric layout — label on left, headline on right offset */}
-        <section className="border-t border-border/60 bg-warm-surface dark:bg-surface/30">
+        {/* ── SERVICES ─────────────────────────────────────────────── */}
+        <section className="border-t border-border/50 bg-warm-surface dark:bg-surface/20">
           <div className="container-width py-24">
-
-            {/* Header — label left, text offset slightly right */}
-            <div className="flex flex-col md:flex-row md:items-end gap-6 mb-16">
-              <div className="md:w-1/3">
-                <p className="text-[11px] font-bold text-accent uppercase tracking-widest">What we actually do</p>
-              </div>
-              <div className="md:w-2/3">
-                <h2 className="text-4xl md:text-5xl font-bold text-text-primary leading-tight">
-                  Three things.<br />
-                  <span className="text-text-secondary font-normal text-3xl">Done properly, not quickly.</span>
-                </h2>
-              </div>
+            <div className="mb-14">
+              <p className="text-[11px] font-bold text-accent uppercase tracking-widest mb-3">What we do</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">
+                Four services. Done properly.
+              </h2>
+              <p className="text-text-secondary max-w-lg">
+                We focus on a small set of things and go deep on each. No stretched teams, no junior handoffs.
+              </p>
             </div>
 
-            {/* Cards — each has a distinctly different hover behavior */}
-            <div className="grid md:grid-cols-3 gap-5">
-              {features.map((f, i) => (
-                <div
-                  key={f.num}
-                  className={`group relative rounded-xl border border-border ${f.bgClass} p-6 transition-all duration-300 cursor-default ${f.hoverClass}`}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {services.map((s, i) => (
+                <Link
+                  key={s.num}
+                  href="/services"
+                  className={`group relative rounded-xl border border-border bg-surface p-6 flex flex-col transition-all duration-300 ${s.hover}`}
                   style={{ transitionDelay: `${i * 40}ms` }}
                 >
-                  {/* Top accent line — different width per card */}
                   <div
-                    className={`absolute top-0 left-6 right-12 h-[2px] rounded-full ${f.accentLine} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                    style={{ width: `${45 + i * 15}%` }}
+                    className={`absolute top-0 left-6 h-[2px] rounded-full ${s.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                    style={{ width: `${40 + i * 10}%` }}
                   />
-
-                  <div className="flex items-start justify-between mb-5">
-                    <span className="text-[10px] font-mono font-bold text-text-tertiary">{f.num}</span>
-                    <span className="opacity-0 group-hover:opacity-70 transition-all duration-200 text-xs text-text-tertiary">
-                      {i === 0 ? "↗" : i === 1 ? "↑" : "→"}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-text-primary mb-2 transition-colors duration-150 group-hover:text-accent">
-                    {f.title}
+                  <span className="text-[10px] font-mono font-bold text-text-tertiary block mb-5">{s.num}</span>
+                  <h3 className="text-[15px] font-bold text-text-primary mb-2 group-hover:text-accent transition-colors duration-150">
+                    {s.title}
                   </h3>
-                  <p className="text-sm text-text-secondary leading-relaxed mb-7">{f.desc}</p>
-
-                  <div className="pt-5 border-t border-border/40 flex flex-wrap gap-1.5">
-                    {f.items.map((item) => (
-                      <span
-                        key={item}
-                        className="text-[11px] font-medium text-text-tertiary bg-surface-highlight dark:bg-background px-2 py-0.5 rounded border border-border/60"
-                      >
+                  <p className="text-sm text-text-secondary leading-relaxed mb-6 flex-1">{s.benefit}</p>
+                  <div className="pt-4 border-t border-border/40 flex flex-wrap gap-1.5">
+                    {s.items.map((item) => (
+                      <span key={item} className="text-[10px] font-medium text-text-tertiary bg-background px-2 py-0.5 rounded border border-border/50">
                         {item}
                       </span>
                     ))}
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
 
-            <div className="mt-8 ml-1">
+            <div className="mt-8">
               <Link
                 href="/services"
                 className="text-sm font-medium text-text-tertiary hover:text-accent transition-colors inline-flex items-center gap-1.5 group"
@@ -317,71 +286,67 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ─── HOW TO GET STARTED ──────────────────────────────────
-            Numbered, step-by-step — not a timeline graphic, just real info */}
+        {/* ── HOW IT WORKS ─────────────────────────────────────────── */}
         <section className="container-width py-24">
-          <div className="max-w-3xl">
-            <p className="text-[11px] font-bold text-accent uppercase tracking-widest mb-4">Getting started</p>
-            <h2 className="text-4xl font-bold text-text-primary mb-2">
-              How it actually works
+          <div className="max-w-2xl mb-14">
+            <p className="text-[11px] font-bold text-accent uppercase tracking-widest mb-3">Process</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">
+              How it works
             </h2>
-            <p className="text-text-secondary mb-14 text-lg">
-              No sales call. No proposal theatre. Here&apos;s the exact sequence.
+            <p className="text-text-secondary">
+              No sales theatre. No long intake forms. Here&apos;s the exact sequence.
             </p>
           </div>
 
-          <div className="space-y-0">
-            {onboardingSteps.map((s, i) => (
+          <div>
+            {steps.map((s) => (
               <div
                 key={s.num}
-                className="group grid md:grid-cols-[80px_1fr_120px] gap-6 py-8 border-t border-border/60 hover:bg-surface-highlight/30 dark:hover:bg-surface/50 transition-colors duration-200 rounded-lg px-3 -mx-3"
+                className="group grid md:grid-cols-[64px_1fr_100px] gap-6 py-7 border-t border-border/50 hover:bg-surface-highlight/30 dark:hover:bg-surface/40 transition-colors duration-200 rounded-lg px-3 -mx-3"
               >
                 <div className="flex items-start pt-0.5">
-                  <span className="text-3xl font-bold text-text-primary/10 dark:text-text-tertiary/20 font-display tabular-nums group-hover:text-accent/20 transition-colors duration-300">
+                  <span className="text-2xl font-bold text-text-primary/10 dark:text-text-tertiary/15 font-mono tabular-nums group-hover:text-accent/15 transition-colors duration-300">
                     {s.num}
                   </span>
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold text-text-primary mb-1.5 group-hover:text-accent transition-colors duration-150">
+                  <h3 className="text-[15px] font-semibold text-text-primary mb-1.5 group-hover:text-accent transition-colors duration-150">
                     {s.title}
                   </h3>
                   <p className="text-sm text-text-secondary leading-relaxed">{s.desc}</p>
                 </div>
-                <div className="flex items-start justify-end md:justify-end pt-0.5">
-                  <span className="text-[11px] font-mono text-text-tertiary bg-surface-highlight dark:bg-surface px-2.5 py-1 rounded border border-border/60 whitespace-nowrap">
+                <div className="flex items-start justify-end pt-0.5">
+                  <span className="text-[11px] font-mono text-text-tertiary bg-surface-highlight dark:bg-surface px-2.5 py-1 rounded border border-border/50 whitespace-nowrap">
                     {s.time}
                   </span>
                 </div>
               </div>
             ))}
-            <div className="border-t border-border/60" />
+            <div className="border-t border-border/50" />
           </div>
         </section>
 
-        {/* ─── PRICING ─────────────────────────────────────────────
-            Not "simple pricing" — actual specifics with honest caveats */}
-        <section className="border-t border-border/60 bg-warm-surface dark:bg-surface/20">
+        {/* ── PRICING ──────────────────────────────────────────────── */}
+        <section id="pricing" className="border-t border-border/50 bg-warm-surface dark:bg-surface/20">
           <div className="container-width py-24">
             <div className="mb-14">
-              <p className="text-[11px] font-bold text-accent uppercase tracking-widest mb-4">Pricing</p>
-              <h2 className="text-4xl font-bold text-text-primary mb-3">
+              <p className="text-[11px] font-bold text-accent uppercase tracking-widest mb-3">Pricing</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">
                 What it costs, roughly.
               </h2>
-              <p className="text-text-secondary text-lg max-w-2xl">
-                We don&apos;t do "contact us for pricing." Here&apos;s our honest range.
-                Every project gets a fixed quote after our first call.
+              <p className="text-text-secondary max-w-xl">
+                We don&apos;t do &ldquo;contact us for pricing.&rdquo; Here is the honest range. Every project gets a fixed quote after a single call.
               </p>
             </div>
 
-            {/* Pricing cards — middle one is elevated, not a generic 3-col grid */}
-            <div className="grid md:grid-cols-3 gap-5 items-start">
+            <div className="grid md:grid-cols-3 gap-4 items-start">
               {pricing.map((p, i) => (
                 <div
                   key={p.name}
                   className={`rounded-xl border p-7 transition-all duration-300 ${
                     p.highlight
-                      ? "border-accent/30 bg-accent-muted dark:bg-accent-muted shadow-xl shadow-accent/10 md:-mt-4 md:-mb-4 relative"
-                      : "border-border bg-surface hover:border-border dark:hover:bg-surface-highlight/30 hover:shadow-md transition-shadow duration-200"
+                      ? "border-accent/25 bg-accent-muted dark:bg-accent-muted shadow-xl shadow-accent/8 md:-mt-5 md:-mb-5 relative"
+                      : "border-border bg-surface hover:shadow-md"
                   }`}
                 >
                   {p.highlight && (
@@ -391,33 +356,28 @@ export default function Home() {
                       </span>
                     </div>
                   )}
-
-                  <p className="text-sm font-semibold text-text-tertiary uppercase tracking-widest mb-3">{p.name}</p>
-                  <div className="flex items-baseline gap-1 mb-1">
+                  <p className="text-[11px] font-bold text-text-tertiary uppercase tracking-widest mb-4">{p.name}</p>
+                  <div className="flex items-baseline gap-1.5 mb-2">
                     <span className="text-4xl font-bold text-text-primary tabular-nums">{p.price}</span>
-                    <span className="text-sm text-text-tertiary">{p.unit}</span>
+                    <span className="text-xs text-text-tertiary">{p.unit}</span>
                   </div>
-                  <p className="text-sm text-text-secondary mb-3 leading-relaxed">{p.tagline}</p>
+                  <p className="text-sm text-text-secondary leading-relaxed mb-1">{p.tagline}</p>
+                  <p className="text-[12px] text-text-tertiary italic mb-6 pb-6 border-b border-border/50">{p.honest}</p>
 
-                  {/* Honest caveat in italic */}
-                  <p className="text-[12px] text-text-tertiary italic mb-6 pb-6 border-b border-border/60">
-                    {p.honest}
-                  </p>
-
-                  <ul className="space-y-2.5 mb-5">
+                  <ul className="space-y-2.5 mb-6">
                     {p.includes.map((item) => (
                       <li key={item} className="flex items-start gap-2.5 text-sm text-text-secondary">
-                        <span className="text-emerald-500 mt-0.5 flex-shrink-0 font-bold">✓</span>
+                        <span className="text-emerald-500 mt-0.5 flex-shrink-0 text-xs">✓</span>
                         {item}
                       </li>
                     ))}
                   </ul>
 
                   {p.notIncluded.length > 0 && (
-                    <div className="mb-7">
+                    <div className="mb-6">
                       <p className="text-[10px] font-bold text-text-tertiary uppercase tracking-widest mb-2">Not included</p>
                       {p.notIncluded.map((item) => (
-                        <p key={item} className="text-[12px] text-text-tertiary">— {item}</p>
+                        <p key={item} className="text-[12px] text-text-tertiary">{item}</p>
                       ))}
                     </div>
                   )}
@@ -426,8 +386,8 @@ export default function Home() {
                     href="/contact"
                     className={`group inline-flex w-full items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-all duration-200 ${
                       p.highlight
-                        ? "bg-accent text-white hover:-translate-y-0.5 hover:bg-accent-highlight shadow-md shadow-accent/25 hover:shadow-lg hover:shadow-accent/30"
-                        : "border border-[#C8CDD8] dark:border-border bg-surface hover:bg-surface-highlight hover:border-[#9BA3B4] dark:hover:border-[#3A4255] text-text-primary"
+                        ? "bg-accent text-white hover:-translate-y-0.5 hover:bg-accent-highlight shadow-md shadow-accent/20 hover:shadow-lg hover:shadow-accent/25"
+                        : "border border-border bg-surface hover:bg-surface-highlight text-text-primary"
                     }`}
                   >
                     {p.cta}
@@ -437,27 +397,24 @@ export default function Home() {
               ))}
             </div>
 
-            <p className="text-xs text-text-tertiary mt-8 ml-1">
-              All prices are in USD. These are estimates — the quote we send after our call is the actual fixed price. No hourly billing.
+            <p className="text-xs text-text-tertiary mt-8">
+              All prices in USD. These are estimates. The quote after our call is the actual fixed price. No hourly billing.
             </p>
           </div>
         </section>
 
-        {/* ─── FAQ ─────────────────────────────────────────────────
-            Real questions, not corporate-speak answers */}
+        {/* ── FAQ ──────────────────────────────────────────────────── */}
         <section className="container-width py-24">
           <div className="grid md:grid-cols-[1fr_2fr] gap-16 items-start">
             <div className="md:sticky md:top-28">
-              <p className="text-[11px] font-bold text-accent uppercase tracking-widest mb-4">FAQ</p>
-              <h2 className="text-3xl font-bold text-text-primary mb-4">
-                Real questions,<br />
-                <span className="text-text-secondary font-normal text-2xl">honest answers.</span>
+              <p className="text-[11px] font-bold text-accent uppercase tracking-widest mb-3">FAQ</p>
+              <h2 className="text-3xl font-bold text-text-primary mb-3">
+                Common questions
               </h2>
               <p className="text-sm text-text-secondary leading-relaxed">
-                We get asked these a lot. The answers aren&apos;t PR-polished — they&apos;re just true.
+                Straight answers. No PR polish.
               </p>
             </div>
-
             <div>
               {faqs.map((f) => (
                 <FAQItem key={f.q} q={f.q} a={f.a} />
@@ -466,36 +423,38 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ─── FINAL CTA ───────────────────────────────────────────
-            Different structure — not the standard centered box */}
-        <section className="border-t border-border/60">
-          <div className="container-width py-28">
+        {/* ── FINAL CTA ────────────────────────────────────────────── */}
+        <section className="border-t border-border/50 relative overflow-hidden">
+          <div aria-hidden className="pointer-events-none absolute inset-0">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-accent/5 blur-[100px]" />
+          </div>
+          <div className="container-width py-28 relative z-10">
             <div className="flex flex-col md:flex-row gap-12 md:gap-20 items-start">
               <div className="md:w-1/2">
-                <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-5 leading-tight">
+                <h2 className="text-4xl md:text-[46px] font-bold text-text-primary mb-5 leading-tight">
                   Got something<br />building in your head?
                 </h2>
-                <p className="text-text-secondary text-lg leading-relaxed mb-2">
-                  Half-baked is fine. Most of our best projects started as a voice note someone sent at 11pm.
+                <p className="text-text-secondary leading-relaxed mb-2">
+                  Half-baked is fine. Most of our best projects started as a rough idea someone sent at 11pm.
                 </p>
                 <p className="text-sm text-text-tertiary">
-                  We read every message. If it&apos;s not a fit, we&apos;ll say so — no ghosting.
+                   We read every message. If it&apos;s not a fit, we&apos;ll say so. No ghosting.
                 </p>
               </div>
-              <div className="md:w-1/2 flex flex-col gap-4 md:pt-4">
+              <div className="md:w-1/2 flex flex-col gap-4 md:pt-3">
                 <Link
                   href="/contact"
-                  className="group inline-flex items-center gap-3 rounded-lg bg-accent px-7 py-4 text-sm font-semibold text-white shadow-lg shadow-accent/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent-highlight hover:shadow-xl hover:shadow-accent/30 active:translate-y-0 self-start"
+                  className="group inline-flex items-center gap-3 rounded-lg bg-accent px-7 py-4 text-sm font-semibold text-white shadow-lg shadow-accent/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent-highlight hover:shadow-xl hover:shadow-accent/28 active:translate-y-0 self-start"
                 >
                   Start the conversation
-                  <span className="transition-all duration-200 group-hover:translate-x-1.5">→</span>
+                  <span className="transition-transform duration-200 group-hover:translate-x-1.5">→</span>
                 </Link>
                 <div className="flex items-center gap-2 text-xs text-text-tertiary">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
                   Usually hear back within a few hours
                 </div>
-                <p className="text-xs text-text-tertiary max-w-xs">
-                  Or email us directly at{" "}
+                <p className="text-xs text-text-tertiary">
+                  Or email us at{" "}
                   <a href="mailto:hello@syncrate.com" className="text-accent hover:underline">
                     hello@syncrate.com
                   </a>
