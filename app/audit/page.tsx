@@ -121,6 +121,7 @@ function LoadingSkeleton() {
 
 function AuditReport({ result, auditedUrl }: { result: AuditResponse; auditedUrl: string }) {
   const imp = result.improvements || {};
+  const data = result.extractedData;
 
   return (
     <div className="space-y-5 animate-fade-in">
@@ -141,6 +142,53 @@ function AuditReport({ result, auditedUrl }: { result: AuditResponse; auditedUrl
           </div>
         </div>
       </div>
+
+      {/* Extracted Data section */}
+      {data && (
+        <div className="rounded-xl border border-border bg-surface p-6 md:p-8">
+          <p className="text-[10px] font-bold text-text-tertiary uppercase tracking-widest mb-5 flex items-center gap-2">
+            What We Found
+          </p>
+          <div className="space-y-6">
+            <div>
+              <p className="text-[11px] font-bold text-text-secondary mb-2 uppercase tracking-wide">Headline (H1)</p>
+              <div className="font-mono text-xs text-text-primary bg-background/50 p-3 rounded-lg border border-border/50 break-words">
+                {data.headline || <span className="text-rose-400">No H1 tag detected</span>}
+              </div>
+            </div>
+            
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div>
+                <p className="text-[11px] font-bold text-text-secondary mb-2 uppercase tracking-wide">Calls to Action</p>
+                <div className="flex flex-wrap gap-2">
+                  {data.ctas?.length > 0 ? (
+                    data.ctas.map((cta, i) => (
+                      <span key={i} className="text-xs font-semibold px-2.5 py-1 bg-accent/10 text-accent rounded border border-accent/20">
+                        {cta}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-xs text-rose-400 font-medium">No clear CTAs found</span>
+                  )}
+                </div>
+              </div>
+              
+              <div>
+                <p className="text-[11px] font-bold text-text-secondary mb-2 uppercase tracking-wide">Key Sections</p>
+                <ul className="text-sm text-text-secondary space-y-1.5 font-medium">
+                  {data.sections?.length > 0 ? (
+                    data.sections.slice(0, 5).map((sec, i) => (
+                      <li key={i} className="flex gap-2 items-start text-xs"><span className="text-text-tertiary">#</span>{sec}</li>
+                    ))
+                  ) : (
+                    <span className="text-xs text-text-tertiary">None clearly defined</span>
+                  )}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Positives + Quick Fixes side by side */}
       <div className="grid md:grid-cols-2 gap-5">
@@ -325,7 +373,7 @@ export default function AuditPage() {
               </div>
 
               <p className="text-xs text-text-tertiary mt-3 text-center">
-                Takes 10 to 20 seconds. Powered by Groq AI.
+                Takes 10 to 20 seconds. Powered by Gemini AI.
               </p>
             </form>
 

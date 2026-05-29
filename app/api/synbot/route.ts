@@ -3,11 +3,11 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const GROQ_API_KEY = process.env.GROK_API_KEY; // Using the key provided by user
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY; // Using the key provided by user
 
 export async function POST(req: Request) {
   try {
-    console.log("SynBot hit (Groq)");
+    console.log("SynBot hit (Gemini)");
 
     const body = await req.json();
     console.log("Incoming body:", body);
@@ -19,22 +19,21 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!GROQ_API_KEY) {
+    if (!GEMINI_API_KEY) {
       return NextResponse.json(
         { error: "API Key not configured" },
         { status: 500 }
       );
     }
 
-    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${GROQ_API_KEY}`
+        "Authorization": `Bearer ${GEMINI_API_KEY}`
       },
       body: JSON.stringify({
-        // Using a supported model (llama-3.3-70b-versatile is current and powerful)
-        model: "llama-3.3-70b-versatile",
+        model: "gemini-1.5-flash",
         messages: [
           { role: "system", content: "You are SynBot for Syncrate. You allow users to ask questions about the Syncrate platform. Be helpful, concise, and professional." },
           { role: "user", content: body.message }
@@ -46,18 +45,18 @@ export async function POST(req: Request) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Groq API Error:", errorText);
-      throw new Error(`Groq API Error: ${response.status} ${response.statusText}`);
+      console.error("Gemini API Error:", errorText);
+      throw new Error(`Gemini API Error: ${response.status} ${response.statusText}`);
     }
 
     const data = await response.json();
     const reply = data.choices[0].message.content;
 
-    console.log("Groq reply:", reply);
+    console.log("Gemini reply:", reply);
 
     return NextResponse.json({ reply });
   } catch (err: any) {
-    console.error("SynBot ERROR (Groq):", err);
+    console.error("SynBot ERROR (Gemini):", err);
 
     return NextResponse.json(
       { error: "SynBot failed" },

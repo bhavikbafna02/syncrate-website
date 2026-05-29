@@ -7,7 +7,7 @@ A modern, high-performance website built with Next.js 16, Tailwind CSS, and Supa
 -   **Modern Tech Stack**: Built on Next.js 16 (App Router) and React 19.
 -   **Authentication**: Secure user management with Supabase Auth.
 -   **Database**: PostgreSQL via Supabase for contact form submissions and user data.
--   **AI Integration**: "SynBot," an AI assistant (configured for Groq/Grok).
+-   **AI Integration**: "SynBot," an AI assistant (configured for Gemini AI).
 -   **Booking System**: Integrated Calendly modal for scheduling appointments.
 -   **Responsive Design**: Mobile-first approach with a custom design system using Tailwind CSS v4.
 -   **Theming**: Built-in Dark/Light mode support (defaulting to a premium dark theme).
@@ -26,7 +26,7 @@ A modern, high-performance website built with Next.js 16, Tailwind CSS, and Supa
 
 -   Node.js 18+ installed on your machine.
 -   A Supabase account and project.
--   An API Key for the AI service (Groq/Grok).
+-   An API Key for the AI service (Gemini).
 
 ### Installation
 
@@ -53,7 +53,7 @@ A modern, high-performance website built with Next.js 16, Tailwind CSS, and Supa
     NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
     
     # AI Configuration (SynBot)
-    GROK_API_KEY=your_grok_api_key
+    GEMINI_API_KEY=your_gemini_api_key
     ```
 
 4.  **Run the development server:**

@@ -139,9 +139,9 @@ export async function POST(req: Request) {
     }
 
     /* ── 4. Build AI Prompt ──────────────────────────────────────────── */
-    const apiKey = process.env.GROK_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      console.error('GROK_API_KEY missing');
+      console.error('GEMINI_API_KEY missing');
       return NextResponse.json(
         { error: 'AI service not configured.' },
         { status: 500 }
@@ -178,7 +178,12 @@ Instructions:
   },
   "quickFixes": ["<standard fix>", "<standard fix>", "<standard fix>"],
   "keepAsIs": ["<standard working element>", "<standard working element>"],
-  "agencyApproach": "<how a pro would do a deep-dive manual audit>"
+  "agencyApproach": "<how a pro would do a deep-dive manual audit>",
+  "extractedData": {
+    "headline": "Hidden by anti-bot protection",
+    "ctas": [],
+    "sections": []
+  }
 }`;
     } else {
       prompt = `You are a highly experienced web consultant performing a live teardown of a website. Your job is to give a heavily tailored, intensely specific, and practical critique.
@@ -188,7 +193,11 @@ Website Details:
 - Page Title: ${site.title || 'None'}
 - Meta Description: ${site.description || 'None'}
 - H1 Heading: ${site.h1}
-- H2 Headings: ${site.h2s.length > 0 ? site.h2s.join(' | ') : 'None found'}
+- Subheadline: ${site.subheadline || 'None'}
+- Navigation Links: ${site.navigation.length > 0 ? site.navigation.join(' | ') : 'None found'}
+- Sections/H2s: ${site.sections.length > 0 ? site.sections.join(' | ') : 'None found'}
+- CTAs Found: ${site.ctas.length > 0 ? site.ctas.join(' | ') : 'None explicitly found'}
+- Count of Long Paragraphs (>300 chars): ${site.longParagraphCount}
 - Approximate Word Count: ${site.wordCount}
 - Image Count: ${site.imageCount}
 - Has Viewport Meta: ${site.hasViewport ? 'Yes' : 'No'}
@@ -201,25 +210,26 @@ ${site.mainText}
 """
 
 DATA USAGE RULES (CRITICAL):
-- You MUST reference the ACTUAL text (H1, H2s, or body copy) from the website in your feedback. 
-- Example BAD: "Your headline doesn't explain what you do."
-- Example GOOD: "Your headline '${site.h1}' doesn't clearly explain what you do."
+- You MUST reference the ACTUAL text (H1, sections, CTAs, or body copy) from the website in your feedback. 
+- Example BAD: "The page has too much text."
+- Example GOOD: "The section '[actual section title]' has long paragraphs that are hard to scan."
+- Example BAD: "Language is generic."
+- Example GOOD: "The phrase '[actual phrase]' sounds good but doesn't explain what you actually do."
+- Make sure you check if CTAs are missing, if sections are text-heavy (using longParagraphCount), or if headlines are vague.
 - Do NOT invent features or text that aren't in the provided data. Give feedback ONLY on what you see.
 - If data is limited, state that: "Based on the limited visible text..."
 
 TONE RULES:
-- Human, direct, and slightly opinionated. 
-- No AI tone, zero buzzwords. Sound like a real consultant talking to a founder.
+- Write like a real consultant. Be direct, not robotic.
+- Slightly critical but helpful.
 - Keep sentences short. Avoid over-explaining.
 - Be highly specific and actionable.
-- Example BAD: "Enhancing your SEO strategy could improve visibility."
-- Example GOOD: "Your page doesn't clearly target any specific keyword or search intent."
 
 OUTPUT FORMAT:
 - Score out of 100 based on realistic business conversion capability.
 - Short bullet points for arrays, 1 sentence maximum per item. Keep it punchy.
 - The "summary" is a one-line honest overview (e.g. "58/100 — decent structure, but unclear messaging and weak call-to-action").
-- The "agencyApproach" is a short, non-salesy explanation of how a pro would naturally fix it.
+- The "extractedData" field MUST be populated with the actual data from the page, or empty if not present.
 - Return ONLY valid JSON matching the exact shape below. No markdown fences.
 
 {
@@ -237,20 +247,25 @@ OUTPUT FORMAT:
   },
   "quickFixes": ["<highly specific action like rewriting the exact H1>", "<highly specific action>", "<highly specific action>"],
   "keepAsIs": ["<specific element to NOT change>", "<specific element to NOT change>"],
-  "agencyApproach": "<how a pro would tackle this organically>"
+  "agencyApproach": "<how a pro would tackle this organically>",
+  "extractedData": {
+    "headline": "<exact h1>",
+    "ctas": ["<exact cta 1>", "<exact cta 2>"],
+    "sections": ["<exact section 1>", "<exact section 2>"]
+  }
 }`;
     }
 
-    /* ── 5. Call Groq API ────────────────────────────────────────────── */
+    /* ── 5. Call Gemini API ──────────────────────────────────────────── */
     try {
-      const aiRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      const aiRes = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: 'llama-3.3-70b-versatile',
+          model: 'gemini-1.5-flash',
           messages: [
             {
               role: 'system',
@@ -267,7 +282,7 @@ OUTPUT FORMAT:
 
       if (!aiRes.ok) {
         const errText = await aiRes.text();
-        console.error('Groq API error:', errText);
+        console.error('Gemini API error:', errText);
         throw new Error(`AI service returned ${aiRes.status}`);
       }
 
