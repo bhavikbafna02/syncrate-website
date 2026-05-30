@@ -33,7 +33,7 @@ export async function POST(req: Request) {
         "Authorization": `Bearer ${GEMINI_API_KEY}`
       },
       body: JSON.stringify({
-        model: "gemini-1.5-flash",
+        model: "gemini-2.5-flash",
         messages: [
           { role: "system", content: "You are SynBot for Syncrate. You allow users to ask questions about the Syncrate platform. Be helpful, concise, and professional." },
           { role: "user", content: body.message }
