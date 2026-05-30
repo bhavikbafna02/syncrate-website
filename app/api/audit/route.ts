@@ -160,9 +160,17 @@ Instructions:
 - Give generally applicable best practices for conversion, design, and UX regarding this type of domain.
 - Keep the score relatively conservative (e.g., 50-70).
 - The "agencyApproach" field should explain how an agency would bypass these limits via a manual audit.
-- Keep every array item to 1-2 sentences max — tight and actionable.
 - Do NOT use unescaped double quotes inside the JSON string values. Use single quotes for nested quotes instead.
 - Return ONLY valid JSON matching the exact shape below. No markdown fences.
+
+CRITICAL LENGTH CONSTRAINTS (TO PREVENT TRUNCATION):
+- Keep all explanations extremely brief, direct, and under these limits:
+  - 'summary': max 15 words.
+  - 'firstImpression': max 20 words.
+  - 'agencyApproach': max 30 words.
+  - 'positives', 'quickFixes', 'keepAsIs': exactly 2 items maximum, max 12 words per item.
+  - All 'improvements' sub-arrays ('clarity', 'design', 'ux', 'conversion', 'content', 'seo'): exactly 1 item maximum, max 12 words per item.
+- Failure to comply will cause a JSON parsing crash. Keep it extremely punchy!
 
 {
   "score": <number 0-100>,
@@ -228,11 +236,18 @@ TONE RULES:
 
 OUTPUT FORMAT:
 - Score out of 100 based on realistic business conversion capability.
-- Short bullet points for arrays, 1 sentence maximum per item. Keep it punchy.
-- The "summary" is a one-line honest overview (e.g. "58/100 — decent structure, but unclear messaging and weak call-to-action").
 - The "extractedData" field MUST be populated with the actual data from the page, or empty if not present.
 - Do NOT use unescaped double quotes inside the JSON string values. Use single quotes for nested quotes instead.
 - Return ONLY valid JSON matching the exact shape below. No markdown fences.
+
+CRITICAL LENGTH CONSTRAINTS (TO PREVENT TRUNCATION):
+- Keep all explanations extremely brief, direct, and under these limits:
+  - 'summary': max 15 words.
+  - 'firstImpression': max 20 words.
+  - 'agencyApproach': max 30 words.
+  - 'positives', 'quickFixes', 'keepAsIs': exactly 2 items maximum, max 12 words per item.
+  - All 'improvements' sub-arrays ('clarity', 'design', 'ux', 'conversion', 'content', 'seo'): exactly 1 item maximum, max 12 words per item.
+- Failure to comply will cause a JSON parsing crash. Keep it extremely punchy!
 
 {
   "score": <number 0-100>,
@@ -273,12 +288,12 @@ OUTPUT FORMAT:
             {
               role: 'system',
               content:
-                'You are a senior web consultant. Return only valid JSON — no markdown fences, no commentary outside the JSON object.',
+                'You are a senior web consultant. Return only valid JSON matching the requested schema. Keep all answers extremely short and concise.',
             },
             { role: 'user', content: prompt },
           ],
           temperature: 0.4,
-          max_tokens: 2000,
+          max_tokens: 3000,
           stream: false,
         }),
       });
@@ -309,6 +324,18 @@ OUTPUT FORMAT:
       return NextResponse.json({ success: true, data: result, isPartial: isBlocked });
     } catch (aiError: any) {
       console.error('AI generation failed:', aiError);
+      try {
+        const fs = require('fs');
+        const path = require('path');
+        const dir = '/Users/bhavikbafna02/Developer/syncrate-website/scratch';
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+        const logPath = path.join(dir, 'audit_error.log');
+        fs.writeFileSync(logPath, JSON.stringify({
+          message: aiError.message,
+          stack: aiError.stack,
+          rawError: String(aiError)
+        }, null, 2));
+      } catch (e) {}
       return NextResponse.json(
         { error: 'AI audit failed. Please try again in a moment.' },
         { status: 500 }
