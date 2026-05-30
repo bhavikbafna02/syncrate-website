@@ -161,6 +161,7 @@ Instructions:
 - Keep the score relatively conservative (e.g., 50-70).
 - The "agencyApproach" field should explain how an agency would bypass these limits via a manual audit.
 - Keep every array item to 1-2 sentences max — tight and actionable.
+- Do NOT use unescaped double quotes inside the JSON string values. Use single quotes for nested quotes instead.
 - Return ONLY valid JSON matching the exact shape below. No markdown fences.
 
 {
@@ -230,6 +231,7 @@ OUTPUT FORMAT:
 - Short bullet points for arrays, 1 sentence maximum per item. Keep it punchy.
 - The "summary" is a one-line honest overview (e.g. "58/100 — decent structure, but unclear messaging and weak call-to-action").
 - The "extractedData" field MUST be populated with the actual data from the page, or empty if not present.
+- Do NOT use unescaped double quotes inside the JSON string values. Use single quotes for nested quotes instead.
 - Return ONLY valid JSON matching the exact shape below. No markdown fences.
 
 {
@@ -266,6 +268,7 @@ OUTPUT FORMAT:
         },
         body: JSON.stringify({
           model: 'gemini-2.5-flash',
+          response_format: { type: "json_object" },
           messages: [
             {
               role: 'system',
@@ -275,7 +278,7 @@ OUTPUT FORMAT:
             { role: 'user', content: prompt },
           ],
           temperature: 0.4,
-          max_tokens: 1800,
+          max_tokens: 2000,
           stream: false,
         }),
       });
