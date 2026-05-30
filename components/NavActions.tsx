@@ -16,7 +16,7 @@ export default function NavActions({ user, username }: NavActionsProps) {
 
     return (
         <>
-            <div className="flex gap-4 items-center pl-4 border-l border-border h-8">
+            <div className="flex gap-2 sm:gap-4 items-center md:pl-4 md:border-l md:border-border h-8">
                 {/* Contact Link */}
                 <Link
                     href="/contact"
@@ -45,9 +45,10 @@ export default function NavActions({ user, username }: NavActionsProps) {
                 {/* Primary CTA: Book Appointment */}
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="btn-primary h-9 whitespace-nowrap ml-2 border border-accent/30 shadow-lg shadow-accent/20"
+                    className="btn-primary h-9 whitespace-nowrap ml-2 border border-accent/30 shadow-lg shadow-accent/20 px-3 sm:px-5"
                 >
-                    Book Appointment
+                    <span className="hidden sm:inline">Book Appointment</span>
+                    <span className="inline sm:hidden">Book Call</span>
                 </button>
             </div>
 

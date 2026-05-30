@@ -217,7 +217,7 @@ export default function Home() {
                 </Link>
               </div>
 
-              <div className="mt-16 pt-10 border-t border-border/50 grid grid-cols-3 gap-10 animate-fade-in">
+              <div className="mt-16 pt-10 border-t border-border/50 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-10 animate-fade-in">
                 {[
                   { val: "12+", label: "Projects shipped" },
                   { val: "3 wks", label: "Avg. first demo" },
