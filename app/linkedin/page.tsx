@@ -132,60 +132,6 @@ const processSteps = [
   },
 ];
 
-const pricingPlans = [
-  {
-    name: "Starter",
-    price: "$297",
-    unit: "one-time",
-    tagline: "A solid, optimized profile with a strong visual first impression.",
-    includes: [
-      "Full profile rewrite (all sections)",
-      "Custom banner design",
-      "LinkedIn SEO keyword mapping",
-      "1 round of revisions",
-      "48-hr delivery",
-    ],
-    notIncluded: ["Content strategy", "Strategy session"],
-    cta: "Get started",
-    highlight: false,
-  },
-  {
-    name: "Growth",
-    price: "$597",
-    unit: "one-time",
-    tagline: "Profile + strategy + content — everything needed to generate real inbound.",
-    includes: [
-      "Everything in Starter",
-      "Personal branding strategy doc",
-      "30-day content calendar",
-      "5 fully written LinkedIn posts",
-      "45-min strategy session",
-      "2 rounds of revisions",
-    ],
-    notIncluded: ["Ongoing monthly management"],
-    cta: "Start growing",
-    highlight: true,
-  },
-  {
-    name: "Premium",
-    price: "$1,197",
-    unit: "one-time",
-    tagline: "LinkedIn as a sustained lead source — for founders who are serious about it.",
-    includes: [
-      "Everything in Growth",
-      "90-day LinkedIn growth plan",
-      "10 fully written posts",
-      "Engagement playbook",
-      "Monthly check-in (3 months)",
-      "Profile performance tracking",
-      "Priority response (same-day)",
-    ],
-    notIncluded: [],
-    cta: "Go premium",
-    highlight: false,
-  },
-];
-
 const faqs = [
   {
     q: "How long until I see results?",
@@ -324,7 +270,6 @@ function LeadForm() {
 export default function LinkedInOptimizationPage() {
   const servicesRef = useInView();
   const processRef = useInView();
-  const pricingRef = useInView();
 
   return (
     <main className="overflow-x-hidden">
@@ -361,12 +306,6 @@ export default function LinkedInOptimizationPage() {
               >
                 Get Free Profile Audit
                 <span className="transition-transform duration-200 group-hover:translate-x-1.5">→</span>
-              </a>
-              <a
-                href="#pricing"
-                className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-6 py-3.5 text-sm font-semibold text-text-primary transition-all duration-150 hover:border-border/80 hover:bg-surface-highlight active:scale-[0.98]"
-              >
-                View packages
               </a>
             </div>
 
@@ -536,90 +475,6 @@ export default function LinkedInOptimizationPage() {
             </div>
           ))}
           <div className="border-t border-border/50" />
-        </div>
-      </section>
-
-      {/* ── PRICING ───────────────────────────────────────────────── */}
-      <section
-        id="pricing"
-        ref={pricingRef.ref}
-        className="border-t border-border/50 bg-warm-surface dark:bg-surface/20"
-      >
-        <div className="container-width py-24">
-          <div className="mb-14">
-            <p className="text-[11px] font-bold text-accent uppercase tracking-widest mb-3">Pricing</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">
-              One-time. No retainers.
-            </h2>
-            <p className="text-text-secondary max-w-xl">
-              Every package pays for itself in a single closed deal or new role. Pick the depth your goals require.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-4 items-start">
-            {pricingPlans.map((p, i) => (
-              <div
-                key={p.name}
-                className={`rounded-xl border p-7 transition-all duration-300 ${
-                  p.highlight
-                    ? "border-accent/25 bg-accent-muted dark:bg-accent-muted shadow-xl shadow-accent/8 md:-mt-5 md:-mb-5 relative"
-                    : "border-border bg-surface hover:shadow-md"
-                } ${pricingRef.inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                style={{ transition: `opacity 0.5s ease ${i * 90}ms, transform 0.5s ease ${i * 90}ms, box-shadow 0.3s ease` }}
-              >
-                {p.highlight && (
-                  <div className="absolute -top-3 left-6">
-                    <span className="bg-accent text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full">
-                      Most popular
-                    </span>
-                  </div>
-                )}
-
-                <p className="text-[11px] font-bold text-text-tertiary uppercase tracking-widest mb-4">{p.name}</p>
-                <div className="flex items-baseline gap-1.5 mb-2">
-                  <span className="text-4xl font-bold text-text-primary tabular-nums">{p.price}</span>
-                  <span className="text-xs text-text-tertiary">{p.unit}</span>
-                </div>
-                <p className="text-sm text-text-secondary leading-relaxed mb-6 pb-6 border-b border-border/50">
-                  {p.tagline}
-                </p>
-
-                <ul className="space-y-2.5 mb-6">
-                  {p.includes.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-text-secondary">
-                      <span className="text-emerald-500 mt-0.5 flex-shrink-0 text-xs font-bold">✓</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                {p.notIncluded.length > 0 && (
-                  <div className="mb-6">
-                    <p className="text-[10px] font-bold text-text-tertiary uppercase tracking-widest mb-2">Not included</p>
-                    {p.notIncluded.map((item) => (
-                      <p key={item} className="text-[12px] text-text-tertiary leading-relaxed">— {item}</p>
-                    ))}
-                  </div>
-                )}
-
-                <a
-                  href="#audit"
-                  className={`group inline-flex w-full items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-all duration-200 ${
-                    p.highlight
-                      ? "bg-accent text-white hover:-translate-y-0.5 hover:bg-accent-highlight shadow-md shadow-accent/20 hover:shadow-lg hover:shadow-accent/25"
-                      : "border border-border bg-surface hover:bg-surface-highlight hover:border-border/80 text-text-primary"
-                  }`}
-                >
-                  {p.cta}
-                  <span className="transition-transform duration-150 group-hover:translate-x-1">→</span>
-                </a>
-              </div>
-            ))}
-          </div>
-
-          <p className="text-xs text-text-tertiary mt-8">
-            All prices in USD. If we can&apos;t meaningfully improve your profile, we&apos;ll tell you upfront — no charge.
-          </p>
         </div>
       </section>
 

@@ -610,13 +610,6 @@ export default function ServicesPage() {
                 Describe your situation
                 <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
               </Link>
-              <p className="text-xs text-text-tertiary">
-                Or check our{" "}
-                <Link href="/#pricing" className="underline underline-offset-2 hover:text-accent transition-colors">
-                  pricing estimates
-                </Link>{" "}
-                if you want numbers first.
-              </p>
             </div>
           </div>
         </section>
